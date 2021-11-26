@@ -1,0 +1,1039 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Devm_items_editor"
+        xmlns:Control="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:i="clr-namespace:Microsoft.VisualBasic;assembly=Microsoft.VisualBasic"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        x:Class="Devm_items_editor.MainWindow"
+        mc:Ignorable="d"
+        Title="Devm items editor v1.0" Height="600" Width="800" WindowStartupLocation="CenterScreen" WindowState="Maximized">
+    <Window.Resources>
+        <ControlTemplate x:Key="ComboBoxToggleButton" TargetType="{x:Type ToggleButton}">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition />
+                    <ColumnDefinition Width="20" />
+                </Grid.ColumnDefinitions>
+                <Border x:Name="Border" CornerRadius="2" Grid.ColumnSpan="2" Background="#FF4D6886" BorderBrush="#FF3F3F3F" BorderThickness="1" />
+                <Border Grid.Column="0" CornerRadius="0" Margin="1" Background="White" BorderBrush="#FF685F5A" BorderThickness="0,0,1,0" Width="Auto"/>
+                <Path x:Name="Arrow" Grid.Column="1" Fill="White" HorizontalAlignment="Center" VerticalAlignment="Center" Data="M0,0 L0,2 L4,6 L8,2 L8,0 L4,4 z" />
+            </Grid>
+        </ControlTemplate>
+        <ControlTemplate x:Key="ComboBoxTextBox" TargetType="{x:Type TextBox}">
+            <Border x:Name="PART_ContentHost" Focusable="False" Background="{TemplateBinding Background}"/>
+        </ControlTemplate>
+        <Style x:Key="{x:Type ScrollBar}" TargetType="{x:Type ScrollBar}">
+            <Setter Property="Background" Value="White"/>
+		</Style>
+        <Style x:Key="{x:Type ComboBox}" TargetType="{x:Type ComboBox}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="ScrollViewer.HorizontalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.VerticalScrollBarVisibility" Value="Auto"/>
+            <Setter Property="ScrollViewer.CanContentScroll" Value="true"/>
+            <Setter Property="MinWidth" Value="120"/>
+            <Setter Property="MinHeight" Value="20"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBox}">
+                        <Grid>
+                            <ToggleButton Name="ToggleButton" Template="{StaticResource ComboBoxToggleButton}" Grid.Column="2" Focusable="false" IsChecked="{Binding Path=IsDropDownOpen,Mode=TwoWay,RelativeSource={RelativeSource TemplatedParent}}" ClickMode="Press"/>
+                            <ContentPresenter Name="ContentSite" IsHitTestVisible="False"  Content="{TemplateBinding SelectionBoxItem}" ContentTemplate="{TemplateBinding SelectionBoxItemTemplate}" ContentTemplateSelector="{TemplateBinding ItemTemplateSelector}" Margin="3,3,23,3" VerticalAlignment="Center" HorizontalAlignment="Left" />
+                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="PART_EditableTextBox" Style="{x:Null}" Template="{StaticResource ComboBoxTextBox}" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="3,3,23,3" Focusable="True" Background="White" Foreground="#FF4D6886" Visibility="Hidden" IsReadOnly="{TemplateBinding IsReadOnly}"/>
+                            <Popup Name="Popup" Placement="Bottom" IsOpen="{TemplateBinding IsDropDownOpen}" AllowsTransparency="True" Focusable="False" PopupAnimation="Slide">
+                                <Grid Name="DropDown" SnapsToDevicePixels="True" MinWidth="{TemplateBinding ActualWidth}" MaxHeight="{TemplateBinding MaxDropDownHeight}">
+                                    <Border x:Name="DropDownBorder" Background="White" BorderThickness="1" BorderBrush="#888888"/>
+                                    <ScrollViewer Margin="4,6,4,6" SnapsToDevicePixels="True">
+                                        <StackPanel IsItemsHost="True" KeyboardNavigation.DirectionalNavigation="Contained" />
+                                    </ScrollViewer>
+                                </Grid>
+                            </Popup>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="HasItems" Value="false">
+                                <Setter TargetName="DropDownBorder" Property="MinHeight" Value="95"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#777777"/>
+                            </Trigger>
+                            <Trigger Property="IsGrouping" Value="true">
+                                <Setter Property="ScrollViewer.CanContentScroll" Value="false"/>
+                            </Trigger>
+                            <Trigger SourceName="Popup" Property="Popup.AllowsTransparency" Value="true">
+                                <Setter TargetName="DropDownBorder" Property="CornerRadius" Value="0"/>
+                                <Setter TargetName="DropDownBorder" Property="Margin" Value="0,2,0,0"/>
+                            </Trigger>
+                            <Trigger Property="IsEditable"  Value="true">
+                                <Setter Property="IsTabStop" Value="false"/>
+                                <Setter TargetName="PART_EditableTextBox" Property="Visibility" Value="Visible"/>
+                                <Setter TargetName="ContentSite" Property="Visibility" Value="Hidden"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Type ComboBoxItem}" TargetType="{x:Type ComboBoxItem}">
+            <Setter Property="SnapsToDevicePixels" Value="true"/>
+            <Setter Property="Foreground" Value="Black"/>
+            <Setter Property="OverridesDefaultStyle" Value="true"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type ComboBoxItem}">
+                        <Border Name="Border" Padding="2" SnapsToDevicePixels="true">
+                            <ContentPresenter />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsHighlighted" Value="true">
+                                <Setter TargetName="Border" Property="Background" Value="#FFC2DCF9"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Foreground" Value="#FF9DCDF3"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Type CheckBox}" TargetType="{x:Type CheckBox}">
+            <Setter Property="VerticalContentAlignment" Value="center"/>
+            <Setter Property="HorizontalContentAlignment" Value="left"/>
+        </Style>
+        <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF4D6886"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3F3F3F"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="4" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FF7BA4D1"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FF91C0F5"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="true">
+                                <Setter Property="Opacity" TargetName="border" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style x:Key="{x:Type TabItem}" TargetType="{x:Type TabItem}">
+            <Setter Property="FontSize" Value="16" />
+            <Setter Property="Foreground" Value="Black" />
+            <Setter Property="BorderBrush" Value="Transparent" />
+            <Setter Property="BorderThickness" Value="1,1,1,0" />
+            <Setter Property="Background" Value="#FFC3C2C2" />
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FFD6D5D5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="230"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid Background="#FFD6D5D5" Grid.Column="1">
+            <Rectangle MouseDown="MouseDownToDrag" Fill="Black" Opacity="0"/>
+            <StackPanel Orientation="Horizontal">
+                <Button Content="Load XML" Margin="5,5,5,5" Click="LoadXML_Click" Width="70"/>
+                <Button Content="Save XML as" Margin="5,5,5,5" Click="SaveXML_Click"/>
+                <Button Content="Load assets" Margin="5,5,5,5" Click="LoadAssets_Click"/>
+                <Button Content="Load wiki" Margin="5,5,5,5" Click="LoadWiki_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Background="#FFD6D5D5">
+            <Rectangle MouseDown="MouseDownToDrag" Fill="Black" Opacity="0"/>
+            <StackPanel Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <TextBlock Text="Search" HorizontalAlignment="Center"/>
+                <StackPanel Orientation="Horizontal" Margin="0,5,0,2" HorizontalAlignment="Center">
+                    <TextBlock Text="Keyword:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                    <TextBox x:Name="KeyWord" Width="140" Height="25" MinHeight="0" Padding="4,2,4,4"  UseLayoutRounding="False" TextWrapping="Wrap" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="                 --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,2,0,0" HorizontalAlignment="Center">
+                    <TextBlock Text="Filter:" Margin="20,0,5,0" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="Filter">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Horizontal">
+                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                </StackPanel>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                    <Button Content="Go" Margin="10,0,0,0" Click="Search_Click"/>
+                </StackPanel>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="1" Grid.Column="1" Grid.RowSpan="2">
+            <Rectangle Fill="#FFD6D5D5" VerticalAlignment="Top" Height="20" MouseDown="MouseDownToDrag"/>
+            <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" CanContentScroll="True">
+                <Control:MetroAnimatedTabControl Grid.ColumnSpan="2" Control:HeaderedControlHelper.HeaderFontSize="16">
+                    <TabItem Header="Index">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Rectangle MouseDown="MouseDownToDrag" Fill="#FFEFEFEF"/>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                                <Image Source="pack://application:,,,/icon.ico" Margin="0,50,0,0" Width="64" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                <TextBlock Text="Devm item editor v1.0" HorizontalAlignment="Center" Foreground="#FF4D6886" FontWeight="Bold"/>
+                                <TextBlock Text="By Marcosvf132" HorizontalAlignment="Center" Foreground="#FF4D6886" FontSize="10" Margin="0,0,0,15"/>
+                                <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                    <StackPanel Margin="0,5,0,0">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                            <TextBlock Text="From ID: " VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="FromID" Width="50" TextAlignment="Center" Margin="5,0,5,0" Height="25" MinHeight="0" Padding="4,2,4,4" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            <TextBlock Text="- To ID:" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ToID" Width="50" TextAlignment="Center" Margin="5,0,0,0" Height="25" MinHeight="0" Padding="4,2,4,4" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Margin="5,5,5,5" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                            <TextBox PreviewTextInput="OnTextChanged" x:Name="Article" Margin="0,0,2,0" TextAlignment="Center" VerticalAlignment="Top" Width="32" Height="25" MinHeight="0" Padding="4,2,4,4" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark=" --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            <TextBlock Text="-" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="OnTextChanged" x:Name="ItemName" Width="190" Margin="2,0,5,0" Height="25" MinHeight="0" Padding="4,2,4,4" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="                        ---" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="0,5,0,5">
+                                            <TextBlock Text="Plural:" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="OnTextChanged" x:Name="Plural" Width="180" Margin="8.5,0,5,0" Height="25" MinHeight="0" Padding="4,2,4,4" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="                        ---" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,5,0,5">
+                                            <TextBlock Text="Description:" HorizontalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="OnTextChanged" x:Name="Description" Width="200" Margin="8.5,0,5,0" Padding="2,0,2,0" Height="100" UseLayoutRounding="False" TextWrapping="Wrap" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="                          ---" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,5,0,5">
+                                            <TextBlock Text="Editor sufix:" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="OnTextChanged" x:Name="EditorSufix" Width="150" Margin="8.5,0,5,0" Height="25" MinHeight="0" Padding="4,2,4,4" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="                  ---" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Categories">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Rectangle MouseDown="MouseDownToDrag" Fill="#FFEFEFEF"/>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Center">
+                                <StackPanel Orientation="Vertical" Margin="0,5,0,5">
+                                    <TextBlock Text="Rune spell name:" HorizontalAlignment="Center"/>
+                                    <TextBox PreviewTextInput="OnTextChanged" x:Name="RuneSpell" Text="" Width="190" Margin="8.5,0,5,0"  Padding="4,2,4,4" Height="25" MinHeight="0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="                        ---" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Vertical" Margin="0,5,10,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Type:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="Type" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Floor change:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="FloorChange" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Corpse type:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="CorpseType" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Fluid source:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="FluidSource" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Weapon type:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="WeaponType" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" Margin="0,5,10,5" HorizontalAlignment="Right" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Ammo type:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="AmmoType" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Shoot type:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="ShootType" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Magic effect:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="MagicEffect" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Loot type:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="LootType" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Partner direction:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                            <ComboBox x:Name="PartnerDirection" Width="143" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBox.ItemTemplate>
+                                                    <DataTemplate>
+                                                        <StackPanel Orientation="Horizontal">
+                                                            <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                        </StackPanel>
+                                                    </DataTemplate>
+                                                </ComboBox.ItemTemplate>
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Vertical" Margin="0,0,0,5" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <TextBlock Text="Slot type:" Margin="0,5,5,5" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                    <ComboBox x:Name="SlotType" Width="143" SelectionChanged="OnSelectionCHanged">
+                                        <ComboBox.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ComboBox.ItemTemplate>
+                                    </ComboBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="General data">
+                        <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Rectangle MouseDown="MouseDownToDrag" Fill="#FFEFEFEF"/>
+                            <StackPanel Orientation="Vertical" Margin="0,10,0,0" VerticalAlignment="Top">
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,0" VerticalAlignment="Top">
+                                    <StackPanel Orientation="Vertical" Margin="20,0,20,0" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Show count:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="ShowCount" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Wrap container:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="WrapContainer" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Block projectile:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="BlockProjectile" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Stop duration:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="StopDuration" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Show duration:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="ShowDuration" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Show charges:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="ShowCharges" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Show attributes:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="ShowAttributes" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Replaceable:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="Replaceable" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Mana shield:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="ManaShield" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical" Margin="20,0,20,0" VerticalAlignment="Top">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Podium:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="Podium" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Moveable:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="Moveable" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Pickupable:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="Pickupable" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Readable:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="Readable" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Writeable:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="Writeable" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Invisible:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="Invisible" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Walk stack:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="WalkStack" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Blocking:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="Blocking" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                            <TextBlock Text="Distance read:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                                            <ComboBox x:Name="DistantRead" Width="60" SelectionChanged="OnSelectionCHanged">
+                                                <ComboBoxItem Content="-"/>
+                                                <ComboBoxItem Content="True"/>
+                                                <ComboBoxItem Content="False"/>
+                                            </ComboBox>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Container size:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ContainerSize" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Imbue slots:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSlots" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Armor:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Armor" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Attack:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Attack" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Defense:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Defense" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Rotate to:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="RotateTo" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Wrap to:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="WrapTo" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Female bed:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="FemaleBed" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Male bed:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="MaleBed" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Hit chance:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="HitChance" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Max hit chance:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="MaxHitChance" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Extra defense:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ExtraDefense" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Weight:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Weight" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Speed:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Speed" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Charges:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Charges" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Max text lenght:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="MaxTextLenght" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Level door:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="LevelDoor" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Transform to:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="TransformTo" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Destroy to:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="DestroyTo" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Decay to:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="DecayTo" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Equip to:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="EquipTo" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Dequip to:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="DequipTo" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="5,5,0,5">
+                                            <TextBlock Text="Writing id:" Margin="5,0,5,0" VerticalAlignment="Center"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="WritingID" Width="50" TextAlignment="Center" VerticalAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Duration:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Duration" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Range:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                            <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="Range" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Bonus">
+                        <Grid>
+                            <Rectangle MouseDown="MouseDownToDrag" Fill="#FFEFEFEF"/>
+                            <StackPanel Orientation="Vertical" Margin="0,10,10,0" VerticalAlignment="Top" Grid.ColumnSpan="2">
+                                <GroupBox Header="Skills" Margin="0,5,0,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,3,0,0">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Sword:"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillSword" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0"  Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Axe:"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillAxe" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Fist:"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillFist" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Club:"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillClub" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Distance:"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillDistance" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Fish:"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillFish" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Shield:"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillShield" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="0,3,0,0">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,3,0,5">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Critical:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillCriticalDamage" Margin="5,0,5,0" Width="35" TextAlignment="Center" ToolTip="Critical damage amount" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="  -" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="-"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillCriticalChance" Margin="5,0,2,0" Width="25" TextAlignment="Center" ToolTip="Critical damage chance" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="-" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="%" Opacity="0.7" Margin="0,0,5,0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,3,0,5">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Life leech:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillLifeLeechAmount" Margin="5,0,5,0" Width="35" TextAlignment="Center" ToolTip="Life leech amount" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="  -" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="-"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillLifeLeechChance" Margin="5,0,2,0" Width="25" TextAlignment="Center" ToolTip="Life leech chance" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="-" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="%" Opacity="0.7" Margin="0,0,5,0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,3,0,5">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Mana leech:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillManaLeechAmount" Margin="5,0,5,0" Width="35" TextAlignment="Center" ToolTip="Mana leech amount" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="  -" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="-"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillManaLeechChance" Margin="5,0,2,0" Width="25" TextAlignment="Center" ToolTip="Mana leech chance" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="-" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="%" Opacity="0.7" Margin="0,0,5,0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,3,0,5">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Hitpoints:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillMaxHitPoints" Margin="5,0,5,0" Width="35" TextAlignment="Center" ToolTip="Max hitpoints amount" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="  -" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="-"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillMaxHitPointsPercent" Margin="5,0,2,0" Width="25" TextAlignment="Center" ToolTip="Max hitpoints percentage" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="-" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="%" Opacity="0.7" Margin="0,0,5,0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,3,0,5">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Mana points:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillMaxManaPoints" Margin="5,0,5,0" Width="35" TextAlignment="Center" ToolTip="Max mana points amount" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="  -" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="-"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillMaxManaPointsPercent" Margin="5,0,2,0" Width="25" TextAlignment="Center" ToolTip="Max mana points percentage" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="-" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="%" Opacity="0.7" Margin="0,0,5,0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,3,0,5">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Magic level:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillMagicLevelAmount" Margin="5,0,5,0" Width="35" TextAlignment="Center" ToolTip="Magic level points amount" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="  -" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="-"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="SkillMagicLevelPercent" Margin="5,0,2,0" Width="25" TextAlignment="Center" ToolTip="Magic level points percentage" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="-" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                        <TextBlock Text="%" Opacity="0.7" Margin="0,0,5,0"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Regeneration" Margin="0,5,0,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,3,5,0">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Health gain:"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="HealthGain" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Health Ticks:"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="HealthTicks" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,3,5,0">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Mana gain:"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ManaGain" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Mana Ticks:"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ManaTicks" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Combat">
+                        <Grid>
+                            <Rectangle MouseDown="MouseDownToDrag" Fill="#FFEFEFEF"/>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                                <GroupBox Header="Elemental damage" Margin="0,10,0,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2" Background="#FFEFEFEF">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Ice:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ElementIce" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Energy:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ElementEnergy" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Fire:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ElementFire" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Death:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ElementDeath" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Earth:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ElementEarth" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Holy:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ElementHoly" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Absorb field" Margin="0,5,0,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2" Background="#FFEFEFEF">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Fire:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbFieldFire" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Energy:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbFieldEnergy" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Poison:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbFieldPoison" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Absorb element" Margin="0,5,0,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2" Background="#FFEFEFEF">
+                                    <StackPanel Orientation="Vertical">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="All:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbAll" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Energy:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbEnergy" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Drown:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbDrown" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Life drain:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbLifeDrain" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Mana drain:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbManaDrain" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Elements:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbElements" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Fire:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbFire" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Death:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbDeath" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Physical:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbPhysical" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Magics:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbMagics" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Poison:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbEarth" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Holy:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbHoly" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Healing:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbHealing" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <TextBlock Text="Ice:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                    <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="AbsorbIce" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                    <GroupBox Header="Field damage" Margin="5,5,5,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2" Background="#FFEFEFEF">
+                                        <StackPanel Orientation="Vertical">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                                <TextBlock Text="Field type:" Margin="0,5,5,5" VerticalAlignment="Center"/>
+                                                <ComboBox x:Name="FieldType" SelectionChanged="OnSelectionCHanged">
+                                                    <ComboBox.ItemTemplate>
+                                                        <DataTemplate>
+                                                            <StackPanel Orientation="Horizontal">
+                                                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                                                            </StackPanel>
+                                                        </DataTemplate>
+                                                    </ComboBox.ItemTemplate>
+                                                </ComboBox>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                                                <StackPanel Orientation="Vertical">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Ticks:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="FieldTicks" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Count:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="FieldCount" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Vertical">
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Start:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="FieldStart" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                    </StackPanel>
+                                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                        <TextBlock Text="Damage:"/>
+                                                        <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="FieldDamage" Margin="5,0,5,0" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                                    </StackPanel>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </GroupBox>
+                                    <GroupBox Header="Supress condition" Margin="0,5,5,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2" Background="#FFEFEFEF">
+                                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,3,5,0">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressPhysical" Content=":Physical" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressFreeze" Content=":Freeze" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressDazzle" Content=":Dazzle" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,3,5,0">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressCurse" Content=":Curse" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressFire" Content=":Fire" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressPoison" Content=":Poison" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Vertical" HorizontalAlignment="Left" Margin="5,3,5,0">
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressDrown" Content=":Drown" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressEnergy" Content=":Energy" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                    <CheckBox x:Name="SupressDrunk" Content=":Drunk" FlowDirection="RightToLeft" Click="OnCheckChanged"/>
+                                                </StackPanel>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </GroupBox>
+                                </StackPanel>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
+                </Control:MetroAnimatedTabControl>
+            </ScrollViewer>
+            <Button x:Name="SaveItemButton" ToolTip="You have unsaved data on this item." Content="Save" Margin="0,0,5,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="48" Height="25" Click="SaveItem_Click" Padding="5,5,5,5"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <ListBox x:Name="ItemsList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" VerticalContentAlignment="Top" Background="White" VirtualizingStackPanel.IsVirtualizing="True" VirtualizingStackPanel.VirtualizationMode="Standard" BorderThickness="1,25,1,1" BorderBrush="#FFD6D5D5" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="IsSelected" Value="{Binding Content.IsSelected, Mode=TwoWay, RelativeSource={RelativeSource Self}}"/>
+                        <Setter Property="Template">
+                            <Setter.Value>
+                                <ControlTemplate TargetType="{x:Type ListBoxItem}">
+                                    <ContentPresenter/>
+                                </ControlTemplate>
+                            </Setter.Value>
+                        </Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0,2,0,2">
+                            <Rectangle Fill="#1E4D6886" Width="1000"/>
+                            <Grid MouseEnter="OnItemMouseEnter" MouseLeave="OnItemMouseLeave" MouseDown="OnItemMouseDown" DataContext="{Binding FromID}">
+                                <Rectangle Width="5" Margin="0,2,5,2" HorizontalAlignment="Left" Fill="#FF00C700"/>
+                                <Rectangle Fill="#594D6886" Stroke="White" Opacity="0"/>
+                            </Grid>
+                            <VirtualizingStackPanel Orientation="Horizontal" Margin="10,0,0,0" IsHitTestVisible="False">
+                                <VirtualizingStackPanel Orientation="Vertical" Width="1000">
+                                    <VirtualizingStackPanel Orientation="Horizontal">
+                                        <TextBlock Text="{Binding Name}" VerticalAlignment="Center" Foreground="#FF2D5887"/>
+                                        <TextBlock Text="{Binding Tag}" VerticalAlignment="Center" Foreground="#FF2D5887" Opacity="0.4"/>
+                                    </VirtualizingStackPanel>
+                                    <VirtualizingStackPanel Orientation="Horizontal">
+                                        <TextBlock Text="From ID:" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                                        <TextBlock Text="{Binding FromID}" VerticalAlignment="Center" Foreground="#FF4D6886"/>
+                                        <TextBlock Text="- To ID:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                        <TextBlock Text="{Binding ToID}" VerticalAlignment="Center" Foreground="#FF4D6886"/>
+                                    </VirtualizingStackPanel>
+                                </VirtualizingStackPanel>
+                            </VirtualizingStackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+        </Grid>
+
+        <Grid Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <StackPanel Orientation="Horizontal" Margin="0,5,0,5" HorizontalAlignment="Center">
+                <TextBlock Text="Order by:" Margin="0,0,5,0" VerticalAlignment="Center"/>
+                <ComboBox x:Name="Sort">
+                    <ComboBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal">
+                                <TextBlock Text="{Binding Name}" VerticalAlignment="Center" />
+                            </StackPanel>
+                        </DataTemplate>
+                    </ComboBox.ItemTemplate>
+                </ComboBox>
+                <Button Content="Sort" Margin="10,0,0,0" Click="SortButton_Click"/>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+</Window>

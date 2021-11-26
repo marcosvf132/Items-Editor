@@ -1,0 +1,59 @@
+﻿<Window x:Class="Devm_items_editor.Loader"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Devm_items_editor"
+        mc:Ignorable="d"
+        Title="Loader window" ResizeMode="NoResize" WindowStartupLocation="CenterScreen" WindowStyle="None" BorderBrush="#FF4D6886" BorderThickness="1,1,1,1" Width="300" Height="105">
+    <Window.Resources>
+        <Style x:Key="{x:Type ProgressBar}" TargetType="{x:Type ProgressBar}"/>
+        <Style x:Key="{x:Type Button}" TargetType="{x:Type Button}">
+            <Setter Property="Background" Value="#FF4D6886"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#FF3F3F3F"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <Border x:Name="border" BorderBrush="{TemplateBinding BorderBrush}" CornerRadius="4" BorderThickness="{TemplateBinding BorderThickness}" Background="{TemplateBinding Background}" SnapsToDevicePixels="true">
+                            <ContentPresenter x:Name="contentPresenter" Focusable="False" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" Margin="{TemplateBinding Padding}" RecognizesAccessKey="True" SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FF7BA4D1"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="true">
+                                <Setter Property="Background" TargetName="border" Value="#FF91C0F5"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="true">
+                                <Setter Property="Opacity" TargetName="border" Value="1"/>
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="false">
+                                <Setter Property="Opacity" TargetName="border" Value="0.5"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+    <Grid Background="#FFD4D4D4">
+        <Rectangle MouseDown="MouseDownToDrag" Fill="Black" Opacity="0"/>
+        <ScrollViewer />
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+            <TextBlock x:Name="TitleName" Text="Async loader" HorizontalAlignment="Center" Margin="0,20,0,0" IsHitTestVisible="False"/>
+            <StackPanel Orientation="Horizontal" Margin="0,0,0,5" IsHitTestVisible="False">
+                <ProgressBar x:Name="LoadBar" Margin="25,0,5,0" Height="10" Background="White" BorderBrush="#FF5B5B5B" Foreground="#FF4D6C86" Minimum="0" Value="0" Width="230" VerticalAlignment="Center"/>
+                <TextBlock x:Name="LoadNumber" Text="0%" VerticalAlignment="Center"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <StackPanel Orientation="Vertical" VerticalAlignment="Center" IsHitTestVisible="False">
+                    <TextBlock Text="This can take some time, please wait..." HorizontalAlignment="Center" Foreground="#FF4D6C86" FontSize="10"/>
+                </StackPanel>
+                <Button Content="Abort" Margin="20,0,10,0" Click="Abort_Click"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Window>
