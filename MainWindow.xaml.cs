@@ -3220,44 +3220,55 @@ namespace Devm_items_editor
                             continue;
                         }
 
-                        switch (attribute.Name) {
-                            case "id": {
-                                    item.FromID = int.Parse(value);
-                                    item.ToID = int.Parse(value);
-                                    break;
-                                }
-                            case "fromid": {
-                                    item.FromID = int.Parse(value);
-                                    break;
-                                }
-                            case "toid": {
-                                    item.ToID = int.Parse(value);
-                                    break;
-                                }
-                            case "name": {
-                                    item.Name = value;
-                                    break;
-                                }
-                            case "article": {
-                                    item.Article = value;
-                                    break;
-                                }
-                            case "plural": {
-                                    item.Plural = value;
-                                    break;
-                                }
-                            case "editorsuffix": {
-                                    item.EditorSuffix = value;
-                                    break;
-                                }
-                            default: {
-                                    AppendLog("[ID: " + item.FromID + "] Unknown item attributte '" + attribute.Name + "'");
-                                    continue;
-                                }
+                        try {
+                            switch (attribute.Name) {
+                                case "id": {
+                                        item.FromID = int.Parse(value);
+                                        item.ToID = int.Parse(value);
+                                        break;
+                                    }
+                                case "fromid": {
+                                        item.FromID = int.Parse(value);
+                                        break;
+                                    }
+                                        item.ToID = int.Parse(value);
+                                        break;
+                                    }
+                                case "name": {
+                                        item.Name = value;
+                                        break;
+                                    }
+                                case "article": {
+                                        item.Article = value;
+                                        break;
+                                    }
+                                case "plural": {
+                                        item.Plural = value;
+                                        break;
+                                    }
+                                case "editorsuffix": {
+                                        item.EditorSuffix = value;
+                                        break;
+                                    }
+                                default: {
+                                        AppendLog("[ID: " + item.FromID + "] Unknown item attributte '" + attribute.Name + "'");
+                                        continue;
+                                    }
+                            }
+                        } catch {
+                            // There was an unexpected error while using int.Parse on some string attribute. This can happen by some typo problem on the user .xml file.
+                            // with this additing, the program now can handle this typo problem itself and pop out the error for the user.
+                            AppendLog("Error while parsing item" + (item.FromID != -1 ? (" fromID '" + item.FromID + "' ") : "") + ((item.ToID != -1 ? (" toID '" + item.ToID + "' ") : "") + ((item.Name != string.Empty ? (" name '" + item.Name + "' ") : "")) + ", got unexpected '" + value + "' where it should be a numeric value."));
+                            break;
                         }
                     }
 
                     if (item.FromID == -1 || item.ToID == -1) {
+                        // Silently ignore it since the log error was already inserted.
+                        if (item.FromID == item.ToID && item.Name == string.Empty) {
+                            continue;
+                        }
+
                         AppendLog("Item registered has invalid itemid: FromID: " + item.FromID + " ToID: " + item.ToID + " Name: " + item.Name);
                         continue;
                     }
