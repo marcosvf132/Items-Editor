@@ -3231,6 +3231,7 @@ namespace Devm_items_editor
                                         item.FromID = int.Parse(value);
                                         break;
                                     }
+                                case "toid": {
                                         item.ToID = int.Parse(value);
                                         break;
                                     }
