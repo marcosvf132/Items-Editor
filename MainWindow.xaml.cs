@@ -619,7 +619,8 @@ namespace Devm_items_editor
                     return false;
             }
 
-            return true;
+            int rt;
+            return int.TryParse(value, out rt);
         }
         
         public int ParseStringToFinalInt(string value, int defaultValue = int.MinValue) {
@@ -3180,6 +3181,7 @@ namespace Devm_items_editor
                 return false;
             }
 
+            string lastIDString = "";
             try
             {
                 XmlDocument xml = new XmlDocument();
@@ -3223,15 +3225,18 @@ namespace Devm_items_editor
                         try {
                             switch (attribute.Name) {
                                 case "id": {
+                                        lastIDString = value;
                                         item.FromID = int.Parse(value);
                                         item.ToID = int.Parse(value);
                                         break;
                                     }
                                 case "fromid": {
+                                        lastIDString = value;
                                         item.FromID = int.Parse(value);
                                         break;
                                     }
                                 case "toid": {
+                                        lastIDString = value;
                                         item.ToID = int.Parse(value);
                                         break;
                                     }
@@ -3284,6 +3289,11 @@ namespace Devm_items_editor
                                 item.Comments.Add((itemChildNode.InnerText, true));
                                 continue;
                             } else if (itemChildNode.Name != _itemChildNode) {
+                                // Some items.xml have uncompleted 'item' node. Silently ignoring it since there is no data inside.
+                                if (itemChildNode.Name == _itemNode) {
+                                    break;
+                                }
+
                                 throw new Exception("'" + _itemChildNode + "' node was expected inside '" + _itemNode + "', got '" + itemChildNode.Name + "'.");
                             }
 
@@ -4010,7 +4020,7 @@ namespace Devm_items_editor
 
                 ShowLog();
             } catch (Exception ex) {
-                MessageBox.Show("[ERROR] " + ex.Message);
+                MessageBox.Show("[ERROR] " + " " + ex.Message + " LastItem:" + lastIDString + ". Please reload the application and try again or check for an updated version.");
                 return false;
             }
             return true;
