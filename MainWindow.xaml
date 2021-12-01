@@ -606,6 +606,8 @@
                                             <TextBlock Text="Level door:" VerticalAlignment="Center" Margin="5,0,5,0"/>
                                             <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="LevelDoor" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
                                         </StackPanel>
+                                        <StackPanel Orientation="Horizontal" Margin="5,5,0,5" HorizontalAlignment="Right">
+                                            <TextBlock Text="Upgrade Class:" VerticalAlignment="Center" Margin="5,0,5,0"/>
                                             <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="UpgradeClasssification" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
                                         </StackPanel>
                                     </StackPanel>
