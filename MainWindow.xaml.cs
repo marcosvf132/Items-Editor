@@ -127,6 +127,7 @@ namespace Devm_items_editor
             ElementDeath = int.MinValue;
             ElementHoly = int.MinValue;
 
+            UpgradeClassification = int.MinValue;
             #endregion
 
             #region Bool values
@@ -287,6 +288,7 @@ namespace Devm_items_editor
         public int ElementDeath { get; set; }
         public int ElementHoly { get; set; }
 
+        public int UpgradeClassification { get; set; }
         #endregion
 
         #region Bool values
@@ -1028,10 +1030,11 @@ namespace Devm_items_editor
             ElementDeath.Text = item.ElementDeath != int.MinValue ? item.ElementDeath.ToString() : string.Empty;
             ElementHoly.Text = item.ElementHoly != int.MinValue ? item.ElementHoly.ToString() : string.Empty;
 
+            UpgradeClasssification.Text = item.UpgradeClassification != int.MinValue ? item.UpgradeClassification.ToString() : string.Empty;
             #endregion
 
             #region Boolean
-            
+
             foreach (ComboBoxItem showCount in ShowCount.Items) {
 	            if (item.ShowCount == null) {
 		            if (showCount.Content.ToString() == "-") {
@@ -1383,6 +1386,7 @@ namespace Devm_items_editor
             item.ElementDeath = ParseStringToFinalInt(ElementDeath.Text);
             item.ElementHoly = ParseStringToFinalInt(ElementHoly.Text);
 
+            item.UpgradeClassification = ParseStringToFinalInt(UpgradeClasssification.Text);
             #endregion
 
             #region Boolean
@@ -2866,7 +2870,7 @@ namespace Devm_items_editor
 
                     if (item.MagicLevel != int.MinValue) {
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
-                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "magicLevelPoints";
+                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "magicpoints";
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.MagicLevel.ToString();
                         itemNode.AppendChild(attributeNode);
                     }
@@ -2929,14 +2933,14 @@ namespace Devm_items_editor
 
                     if (item.SkillCriticalDamage != int.MinValue) {
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
-                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "skillcriticaldamage";
+                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "criticalhitdamage";
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.SkillCriticalDamage.ToString();
                         itemNode.AppendChild(attributeNode);
                     }
 
                     if (item.SkillCriticalChance != int.MinValue) {
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
-                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "skillcriticalchance";
+                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "criticalhitchance";
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.SkillCriticalChance.ToString();
                         itemNode.AppendChild(attributeNode);
                     }
@@ -3111,7 +3115,7 @@ namespace Devm_items_editor
 
                     if (item.ImbuingSlots != int.MinValue) {
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
-                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "imbuingslots";
+                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "imbuingslot";
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbuingSlots.ToString();
                         itemNode.AppendChild(attributeNode);
                     }
@@ -3155,6 +3159,13 @@ namespace Devm_items_editor
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "weight";
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.Weight.ToString();
+                        itemNode.AppendChild(attributeNode);
+                    }
+
+                    if (item.UpgradeClassification != int.MinValue) {
+                        attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "upgradeclassification";
+                        attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.UpgradeClassification.ToString();
                         itemNode.AppendChild(attributeNode);
                     }
 
@@ -3223,7 +3234,7 @@ namespace Devm_items_editor
                         }
 
                         try {
-                            switch (attribute.Name) {
+                            switch (attribute.Name.ToLower()) {
                                 case "id": {
                                         lastIDString = value;
                                         item.FromID = int.Parse(value);
@@ -3486,7 +3497,7 @@ namespace Devm_items_editor
                                         error = false;
                                         break;
                                     }
-                                case "imbuingslots": {
+                                case "imbuingslot": {
                                         item.ImbuingSlots = childValueInt;
                                         error = false;
                                         break;
@@ -3623,6 +3634,16 @@ namespace Devm_items_editor
                                     }
                                 case "skillcriticaldamage": {
                                         item.SkillCriticalDamage = childValueInt;
+                                        error = false;
+                                        break;
+                                    }
+                                case "criticalhitdamage": {
+                                        item.SkillCriticalDamage = childValueInt;
+                                        error = false;
+                                        break;
+                                    }
+                                case "criticalhitchance": {
+                                        item.SkillCriticalChance = childValueInt;
                                         error = false;
                                         break;
                                     }
@@ -3843,6 +3864,11 @@ namespace Devm_items_editor
                                     }
                                 case "elementholy": {
                                         item.ElementHoly = childValueInt;
+                                        error = false;
+                                        break;
+                                    }
+                                case "upgradeclassification": {
+                                        item.UpgradeClassification = childValueInt;
                                         error = false;
                                         break;
                                     }

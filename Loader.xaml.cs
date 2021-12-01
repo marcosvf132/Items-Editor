@@ -575,12 +575,23 @@ namespace Devm_items_editor
                                 isChanged = true;
                             }
 
-                            if (itemObject.Flags != null && itemObject.Flags.Market != null) {
-                                string lootType = _parent.ParseProtobufItemCategoryToLootType(itemObject.Flags.Market.Category);
-                                if (lootType.ToLower() != item.LootType.ToLower()) {
-                                    item.LootType = lootType;
-                                    isChanged = true;
+                            if (itemObject.Flags != null) {
+                                if (itemObject.Flags.Market != null) {
+                                    string lootType = _parent.ParseProtobufItemCategoryToLootType(itemObject.Flags.Market.Category);
+                                    if (lootType.ToLower() != item.LootType.ToLower()) {
+                                        item.LootType = lootType;
+                                        isChanged = true;
+                                    }
                                 }
+
+                                if (itemObject.Flags.ShowOffSocket) {
+                                    item.IsPodium = true;
+                                }
+
+                                if (itemObject.Flags.Upgradeclassification != null) {
+                                    item.UpgradeClassification = (int)(itemObject.Flags.Upgradeclassification.UpgradeClassification);
+                                }
+
                             }
 
                             if (isChanged) {

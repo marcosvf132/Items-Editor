@@ -24,110 +24,109 @@ namespace Items.Protobuf.Appearances {
     static AppearancesReflection() {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
-            "ChFhcHBlYXJhbmNlcy5wcm90bxIhY2xpZW50ZWRpdG9yLnByb3RvYnVmLmFw",
-            "cGVhcmFuY2VzGgxzaGFyZWQucHJvdG8i8gIKC0FwcGVhcmFuY2VzEj0KBm9i",
-            "amVjdBgBIAMoCzItLmNsaWVudGVkaXRvci5wcm90b2J1Zi5hcHBlYXJhbmNl",
-            "cy5BcHBlYXJhbmNlEj0KBm91dGZpdBgCIAMoCzItLmNsaWVudGVkaXRvci5w",
-            "cm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJhbmNlEj0KBmVmZmVjdBgDIAMo",
-            "CzItLmNsaWVudGVkaXRvci5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJh",
-            "bmNlEj4KB21pc3NpbGUYBCADKAsyLS5jbGllbnRlZGl0b3IucHJvdG9idWYu",
-            "YXBwZWFyYW5jZXMuQXBwZWFyYW5jZRJmCh5zcGVjaWFsX21lYW5pbmdfYXBw",
-            "ZWFyYW5jZV9pZHMYBSABKAsyPi5jbGllbnRlZGl0b3IucHJvdG9idWYuYXBw",
-            "ZWFyYW5jZXMuU3BlY2lhbE1lYW5pbmdBcHBlYXJhbmNlSWRzIjkKC1Nwcml0",
-            "ZVBoYXNlEhQKDGR1cmF0aW9uX21pbhgBIAEoDRIUCgxkdXJhdGlvbl9tYXgY",
-            "AiABKA0igAIKD1Nwcml0ZUFuaW1hdGlvbhIbChNkZWZhdWx0X3N0YXJ0X3Bo",
-            "YXNlGAEgASgNEhQKDHN5bmNocm9uaXplZBgCIAEoCBIaChJyYW5kb21fc3Rh",
-            "cnRfcGhhc2UYAyABKAgSRAoJbG9vcF90eXBlGAQgASgOMjEuY2xpZW50ZWRp",
-            "dG9yLnByb3RvYnVmLnNoYXJlZC5BTklNQVRJT05fTE9PUF9UWVBFEhIKCmxv",
-            "b3BfY291bnQYBSABKA0SRAoMc3ByaXRlX3BoYXNlGAYgAygLMi4uY2xpZW50",
-            "ZWRpdG9yLnByb3RvYnVmLmFwcGVhcmFuY2VzLlNwcml0ZVBoYXNlIjoKA0Jv",
-            "eBIJCgF4GAEgASgNEgkKAXkYAiABKA0SDQoFd2lkdGgYAyABKA0SDgoGaGVp",
-            "Z2h0GAQgASgNIrQCCgpTcHJpdGVJbmZvEhUKDXBhdHRlcm5fd2lkdGgYASAB",
-            "KA0SFgoOcGF0dGVybl9oZWlnaHQYAiABKA0SFQoNcGF0dGVybl9kZXB0aBgD",
-            "IAEoDRIOCgZsYXllcnMYBCABKA0SEQoJc3ByaXRlX2lkGAUgAygNEhcKD2Jv",
-            "dW5kaW5nX3NxdWFyZRgHIAEoDRJFCglhbmltYXRpb24YBiABKAsyMi5jbGll",
-            "bnRlZGl0b3IucHJvdG9idWYuYXBwZWFyYW5jZXMuU3ByaXRlQW5pbWF0aW9u",
-            "EhEKCWlzX29wYXF1ZRgIIAEoCBJKChpib3VuZGluZ19ib3hfcGVyX2RpcmVj",
-            "dGlvbhgJIAMoCzImLmNsaWVudGVkaXRvci5wcm90b2J1Zi5hcHBlYXJhbmNl",
-            "cy5Cb3girQEKCkZyYW1lR3JvdXASTwoRZml4ZWRfZnJhbWVfZ3JvdXAYASAB",
-            "KA4yNC5jbGllbnRlZGl0b3IucHJvdG9idWYuYXBwZWFyYW5jZXMuRklYRURf",
-            "RlJBTUVfR1JPVVASCgoCaWQYAiABKA0SQgoLc3ByaXRlX2luZm8YAyABKAsy",
-            "LS5jbGllbnRlZGl0b3IucHJvdG9idWYuYXBwZWFyYW5jZXMuU3ByaXRlSW5m",
-            "byLCAQoKQXBwZWFyYW5jZRIKCgJpZBgBIAEoDRJCCgtmcmFtZV9ncm91cBgC",
-            "IAMoCzItLmNsaWVudGVkaXRvci5wcm90b2J1Zi5hcHBlYXJhbmNlcy5GcmFt",
-            "ZUdyb3VwEkEKBWZsYWdzGAMgASgLMjIuY2xpZW50ZWRpdG9yLnByb3RvYnVm",
-            "LmFwcGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFncxIMCgRuYW1lGAQgASgJEhMK",
-            "C2Rlc2NyaXB0aW9uGAUgASgJIrkNCg9BcHBlYXJhbmNlRmxhZ3MSQwoEYmFu",
-            "axgBIAEoCzI1LmNsaWVudGVkaXRvci5wcm90b2J1Zi5hcHBlYXJhbmNlcy5B",
-            "cHBlYXJhbmNlRmxhZ0JhbmsSDAoEY2xpcBgCIAEoCBIOCgZib3R0b20YAyAB",
-            "KAgSCwoDdG9wGAQgASgIEhEKCWNvbnRhaW5lchgFIAEoCBISCgpjdW11bGF0",
-            "aXZlGAYgASgIEg4KBnVzYWJsZRgHIAEoCBIQCghmb3JjZXVzZRgIIAEoCBIQ",
-            "CghtdWx0aXVzZRgJIAEoCBJFCgV3cml0ZRgKIAEoCzI2LmNsaWVudGVkaXRv",
-            "ci5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJhbmNlRmxhZ1dyaXRlEk4K",
-            "CndyaXRlX29uY2UYCyABKAsyOi5jbGllbnRlZGl0b3IucHJvdG9idWYuYXBw",
-            "ZWFyYW5jZXMuQXBwZWFyYW5jZUZsYWdXcml0ZU9uY2USEgoKbGlxdWlkcG9v",
-            "bBgMIAEoCBIOCgZ1bnBhc3MYDSABKAgSDgoGdW5tb3ZlGA4gASgIEg8KB3Vu",
-            "c2lnaHQYDyABKAgSDQoFYXZvaWQYECABKAgSHQoVbm9fbW92ZW1lbnRfYW5p",
-            "bWF0aW9uGBEgASgIEgwKBHRha2UYEiABKAgSFwoPbGlxdWlkY29udGFpbmVy",
-            "GBMgASgIEgwKBGhhbmcYFCABKAgSQwoEaG9vaxgVIAEoCzI1LmNsaWVudGVk",
-            "aXRvci5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJhbmNlRmxhZ0hvb2sS",
-            "DgoGcm90YXRlGBYgASgIEkUKBWxpZ2h0GBcgASgLMjYuY2xpZW50ZWRpdG9y",
-            "LnByb3RvYnVmLmFwcGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFnTGlnaHQSEQoJ",
-            "ZG9udF9oaWRlGBggASgIEhMKC3RyYW5zbHVjZW50GBkgASgIEkUKBXNoaWZ0",
-            "GBogASgLMjYuY2xpZW50ZWRpdG9yLnByb3RvYnVmLmFwcGVhcmFuY2VzLkFw",
-            "cGVhcmFuY2VGbGFnU2hpZnQSRwoGaGVpZ2h0GBsgASgLMjcuY2xpZW50ZWRp",
-            "dG9yLnByb3RvYnVmLmFwcGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFnSGVpZ2h0",
-            "EhQKDGx5aW5nX29iamVjdBgcIAEoCBIWCg5hbmltYXRlX2Fsd2F5cxgdIAEo",
-            "CBJJCgdhdXRvbWFwGB4gASgLMjguY2xpZW50ZWRpdG9yLnByb3RvYnVmLmFw",
-            "cGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFnQXV0b21hcBJLCghsZW5zaGVscBgf",
-            "IAEoCzI5LmNsaWVudGVkaXRvci5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBl",
-            "YXJhbmNlRmxhZ0xlbnNoZWxwEhAKCGZ1bGxiYW5rGCAgASgIEhMKC2lnbm9y",
-            "ZV9sb29rGCEgASgIEkkKB2Nsb3RoZXMYIiABKAsyOC5jbGllbnRlZGl0b3Iu",
-            "cHJvdG9idWYuYXBwZWFyYW5jZXMuQXBwZWFyYW5jZUZsYWdDbG90aGVzElYK",
-            "DmRlZmF1bHRfYWN0aW9uGCMgASgLMj4uY2xpZW50ZWRpdG9yLnByb3RvYnVm",
-            "LmFwcGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFnRGVmYXVsdEFjdGlvbhJHCgZt",
-            "YXJrZXQYJCABKAsyNy5jbGllbnRlZGl0b3IucHJvdG9idWYuYXBwZWFyYW5j",
-            "ZXMuQXBwZWFyYW5jZUZsYWdNYXJrZXQSDAoEd3JhcBglIAEoCBIOCgZ1bndy",
-            "YXAYJiABKAgSEQoJdG9wZWZmZWN0GCcgASgIEkkKC25wY3NhbGVkYXRhGCgg",
-            "AygLMjQuY2xpZW50ZWRpdG9yLnByb3RvYnVmLmFwcGVhcmFuY2VzLkFwcGVh",
-            "cmFuY2VGbGFnTlBDElkKD2NoYW5nZWR0b2V4cGlyZRgpIAEoCzJALmNsaWVu",
-            "dGVkaXRvci5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJhbmNlRmxhZ0No",
-            "YW5nZWRUb0V4cGlyZRIOCgZjb3Jwc2UYKiABKAgSFQoNcGxheWVyX2NvcnBz",
-            "ZRgrIAEoCBJTCg5jeWNsb3BlZGlhaXRlbRgsIAEoCzI7LmNsaWVudGVkaXRv",
-            "ci5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJhbmNlRmxhZ0N5Y2xvcGVk",
-            "aWESDAoEYW1tbxgtIAEoCBIOCgZwb2RpdW0YLiABKAgiJwoSQXBwZWFyYW5j",
-            "ZUZsYWdCYW5rEhEKCXdheXBvaW50cxgBIAEoDSIuChNBcHBlYXJhbmNlRmxh",
-            "Z1dyaXRlEhcKD21heF90ZXh0X2xlbmd0aBgBIAEoDSI3ChdBcHBlYXJhbmNl",
-            "RmxhZ1dyaXRlT25jZRIcChRtYXhfdGV4dF9sZW5ndGhfb25jZRgBIAEoDSI4",
-            "ChNBcHBlYXJhbmNlRmxhZ0xpZ2h0EhIKCmJyaWdodG5lc3MYASABKA0SDQoF",
-            "Y29sb3IYAiABKA0iKQoUQXBwZWFyYW5jZUZsYWdIZWlnaHQSEQoJZWxldmF0",
-            "aW9uGAEgASgNIisKE0FwcGVhcmFuY2VGbGFnU2hpZnQSCQoBeBgBIAEoDRIJ",
-            "CgF5GAIgASgNIiUKFUFwcGVhcmFuY2VGbGFnQ2xvdGhlcxIMCgRzbG90GAEg",
-            "ASgNIloKG0FwcGVhcmFuY2VGbGFnRGVmYXVsdEFjdGlvbhI7CgZhY3Rpb24Y",
-            "ASABKA4yKy5jbGllbnRlZGl0b3IucHJvdG9idWYuc2hhcmVkLlBMQVlFUl9B",
-            "Q1RJT04i9AEKFEFwcGVhcmFuY2VGbGFnTWFya2V0Ej0KCGNhdGVnb3J5GAEg",
-            "ASgOMisuY2xpZW50ZWRpdG9yLnByb3RvYnVmLnNoYXJlZC5JVEVNX0NBVEVH",
-            "T1JZEhoKEnRyYWRlX2FzX29iamVjdF9pZBgCIAEoDRIZChFzaG93X2FzX29i",
-            "amVjdF9pZBgDIAEoDRJPChZyZXN0cmljdF90b19wcm9mZXNzaW9uGAUgAygO",
-            "Mi8uY2xpZW50ZWRpdG9yLnByb3RvYnVmLnNoYXJlZC5QTEFZRVJfUFJPRkVT",
-            "U0lPThIVCg1taW5pbXVtX2xldmVsGAYgASgNIqUBChFBcHBlYXJhbmNlRmxh",
-            "Z05QQxIMCgRuYW1lGAEgASgJEhAKCGxvY2F0aW9uGAIgASgJEhIKCnNhbGVf",
-            "cHJpY2UYAyABKA0SEQoJYnV5X3ByaWNlGAQgASgNEh8KF2N1cnJlbmN5X29i",
-            "amVjdF90eXBlX2lkGAUgASgNEigKIGN1cnJlbmN5X3F1ZXN0X2ZsYWdfZGlz",
-            "cGxheV9uYW1lGAYgASgJIiYKFUFwcGVhcmFuY2VGbGFnQXV0b21hcBINCgVj",
-            "b2xvchgBIAEoDSJQChJBcHBlYXJhbmNlRmxhZ0hvb2sSOgoJZGlyZWN0aW9u",
-            "GAEgASgOMicuY2xpZW50ZWRpdG9yLnByb3RvYnVmLnNoYXJlZC5IT09LX1RZ",
-            "UEUiJAoWQXBwZWFyYW5jZUZsYWdMZW5zaGVscBIKCgJpZBgBIAEoDSI9Ch1B",
-            "cHBlYXJhbmNlRmxhZ0NoYW5nZWRUb0V4cGlyZRIcChRmb3JtZXJfb2JqZWN0",
-            "X3R5cGVpZBgBIAEoDSIzChhBcHBlYXJhbmNlRmxhZ0N5Y2xvcGVkaWESFwoP",
-            "Y3ljbG9wZWRpYV90eXBlGAEgASgNIrMBChtTcGVjaWFsTWVhbmluZ0FwcGVh",
-            "cmFuY2VJZHMSFAoMZ29sZF9jb2luX2lkGAEgASgNEhgKEHBsYXRpbnVtX2Nv",
-            "aW5faWQYAiABKA0SFwoPY3J5c3RhbF9jb2luX2lkGAMgASgNEhcKD3NwZWNp",
-            "YWxfY29pbl9pZBgEIAEoDRIZChFzdGFtcGVkX2xldHRlcl9pZBgFIAEoDRIX",
-            "Cg9zdXBwbHlfc3Rhc2hfaWQYBiABKA0qgQEKEUZJWEVEX0ZSQU1FX0dST1VQ",
-            "EiEKHUZJWEVEX0ZSQU1FX0dST1VQX09VVEZJVF9JRExFEAASIwofRklYRURf",
-            "RlJBTUVfR1JPVVBfT1VURklUX01PVklORxABEiQKIEZJWEVEX0ZSQU1FX0dS",
-            "T1VQX09CSkVDVF9JTklUSUFMEAI="));
+            "ChFhcHBlYXJhbmNlcy5wcm90bxIaaXRlbXMucHJvdG9idWYuYXBwZWFyYW5j",
+            "ZXMaDHNoYXJlZC5wcm90byLPAgoLQXBwZWFyYW5jZXMSNgoGb2JqZWN0GAEg",
+            "AygLMiYuaXRlbXMucHJvdG9idWYuYXBwZWFyYW5jZXMuQXBwZWFyYW5jZRI2",
+            "CgZvdXRmaXQYAiADKAsyJi5pdGVtcy5wcm90b2J1Zi5hcHBlYXJhbmNlcy5B",
+            "cHBlYXJhbmNlEjYKBmVmZmVjdBgDIAMoCzImLml0ZW1zLnByb3RvYnVmLmFw",
+            "cGVhcmFuY2VzLkFwcGVhcmFuY2USNwoHbWlzc2lsZRgEIAMoCzImLml0ZW1z",
+            "LnByb3RvYnVmLmFwcGVhcmFuY2VzLkFwcGVhcmFuY2USXwoec3BlY2lhbF9t",
+            "ZWFuaW5nX2FwcGVhcmFuY2VfaWRzGAUgASgLMjcuaXRlbXMucHJvdG9idWYu",
+            "YXBwZWFyYW5jZXMuU3BlY2lhbE1lYW5pbmdBcHBlYXJhbmNlSWRzIjkKC1Nw",
+            "cml0ZVBoYXNlEhQKDGR1cmF0aW9uX21pbhgBIAEoDRIUCgxkdXJhdGlvbl9t",
+            "YXgYAiABKA0i8gEKD1Nwcml0ZUFuaW1hdGlvbhIbChNkZWZhdWx0X3N0YXJ0",
+            "X3BoYXNlGAEgASgNEhQKDHN5bmNocm9uaXplZBgCIAEoCBIaChJyYW5kb21f",
+            "c3RhcnRfcGhhc2UYAyABKAgSPQoJbG9vcF90eXBlGAQgASgOMiouaXRlbXMu",
+            "cHJvdG9idWYuc2hhcmVkLkFOSU1BVElPTl9MT09QX1RZUEUSEgoKbG9vcF9j",
+            "b3VudBgFIAEoDRI9CgxzcHJpdGVfcGhhc2UYBiADKAsyJy5pdGVtcy5wcm90",
+            "b2J1Zi5hcHBlYXJhbmNlcy5TcHJpdGVQaGFzZSI6CgNCb3gSCQoBeBgBIAEo",
+            "DRIJCgF5GAIgASgNEg0KBXdpZHRoGAMgASgNEg4KBmhlaWdodBgEIAEoDSKm",
+            "AgoKU3ByaXRlSW5mbxIVCg1wYXR0ZXJuX3dpZHRoGAEgASgNEhYKDnBhdHRl",
+            "cm5faGVpZ2h0GAIgASgNEhUKDXBhdHRlcm5fZGVwdGgYAyABKA0SDgoGbGF5",
+            "ZXJzGAQgASgNEhEKCXNwcml0ZV9pZBgFIAMoDRIXCg9ib3VuZGluZ19zcXVh",
+            "cmUYByABKA0SPgoJYW5pbWF0aW9uGAYgASgLMisuaXRlbXMucHJvdG9idWYu",
+            "YXBwZWFyYW5jZXMuU3ByaXRlQW5pbWF0aW9uEhEKCWlzX29wYXF1ZRgIIAEo",
+            "CBJDChpib3VuZGluZ19ib3hfcGVyX2RpcmVjdGlvbhgJIAMoCzIfLml0ZW1z",
+            "LnByb3RvYnVmLmFwcGVhcmFuY2VzLkJveCKfAQoKRnJhbWVHcm91cBJIChFm",
+            "aXhlZF9mcmFtZV9ncm91cBgBIAEoDjItLml0ZW1zLnByb3RvYnVmLmFwcGVh",
+            "cmFuY2VzLkZJWEVEX0ZSQU1FX0dST1VQEgoKAmlkGAIgASgNEjsKC3Nwcml0",
+            "ZV9pbmZvGAMgASgLMiYuaXRlbXMucHJvdG9idWYuYXBwZWFyYW5jZXMuU3By",
+            "aXRlSW5mbyK0AQoKQXBwZWFyYW5jZRIKCgJpZBgBIAEoDRI7CgtmcmFtZV9n",
+            "cm91cBgCIAMoCzImLml0ZW1zLnByb3RvYnVmLmFwcGVhcmFuY2VzLkZyYW1l",
+            "R3JvdXASOgoFZmxhZ3MYAyABKAsyKy5pdGVtcy5wcm90b2J1Zi5hcHBlYXJh",
+            "bmNlcy5BcHBlYXJhbmNlRmxhZ3MSDAoEbmFtZRgEIAEoCRITCgtkZXNjcmlw",
+            "dGlvbhgFIAEoCSLNDQoPQXBwZWFyYW5jZUZsYWdzEjwKBGJhbmsYASABKAsy",
+            "Li5pdGVtcy5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJhbmNlRmxhZ0Jh",
+            "bmsSDAoEY2xpcBgCIAEoCBIOCgZib3R0b20YAyABKAgSCwoDdG9wGAQgASgI",
+            "EhEKCWNvbnRhaW5lchgFIAEoCBISCgpjdW11bGF0aXZlGAYgASgIEg4KBnVz",
+            "YWJsZRgHIAEoCBIQCghmb3JjZXVzZRgIIAEoCBIQCghtdWx0aXVzZRgJIAEo",
+            "CBI+CgV3cml0ZRgKIAEoCzIvLml0ZW1zLnByb3RvYnVmLmFwcGVhcmFuY2Vz",
+            "LkFwcGVhcmFuY2VGbGFnV3JpdGUSRwoKd3JpdGVfb25jZRgLIAEoCzIzLml0",
+            "ZW1zLnByb3RvYnVmLmFwcGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFnV3JpdGVP",
+            "bmNlEhIKCmxpcXVpZHBvb2wYDCABKAgSDgoGdW5wYXNzGA0gASgIEg4KBnVu",
+            "bW92ZRgOIAEoCBIPCgd1bnNpZ2h0GA8gASgIEg0KBWF2b2lkGBAgASgIEh0K",
+            "FW5vX21vdmVtZW50X2FuaW1hdGlvbhgRIAEoCBIMCgR0YWtlGBIgASgIEhcK",
+            "D2xpcXVpZGNvbnRhaW5lchgTIAEoCBIMCgRoYW5nGBQgASgIEjwKBGhvb2sY",
+            "FSABKAsyLi5pdGVtcy5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJhbmNl",
+            "RmxhZ0hvb2sSDgoGcm90YXRlGBYgASgIEj4KBWxpZ2h0GBcgASgLMi8uaXRl",
+            "bXMucHJvdG9idWYuYXBwZWFyYW5jZXMuQXBwZWFyYW5jZUZsYWdMaWdodBIR",
+            "Cglkb250X2hpZGUYGCABKAgSEwoLdHJhbnNsdWNlbnQYGSABKAgSPgoFc2hp",
+            "ZnQYGiABKAsyLy5pdGVtcy5wcm90b2J1Zi5hcHBlYXJhbmNlcy5BcHBlYXJh",
+            "bmNlRmxhZ1NoaWZ0EkAKBmhlaWdodBgbIAEoCzIwLml0ZW1zLnByb3RvYnVm",
+            "LmFwcGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFnSGVpZ2h0EhQKDGx5aW5nX29i",
+            "amVjdBgcIAEoCBIWCg5hbmltYXRlX2Fsd2F5cxgdIAEoCBJCCgdhdXRvbWFw",
+            "GB4gASgLMjEuaXRlbXMucHJvdG9idWYuYXBwZWFyYW5jZXMuQXBwZWFyYW5j",
+            "ZUZsYWdBdXRvbWFwEkQKCGxlbnNoZWxwGB8gASgLMjIuaXRlbXMucHJvdG9i",
+            "dWYuYXBwZWFyYW5jZXMuQXBwZWFyYW5jZUZsYWdMZW5zaGVscBIQCghmdWxs",
+            "YmFuaxggIAEoCBITCgtpZ25vcmVfbG9vaxghIAEoCBJCCgdjbG90aGVzGCIg",
+            "ASgLMjEuaXRlbXMucHJvdG9idWYuYXBwZWFyYW5jZXMuQXBwZWFyYW5jZUZs",
+            "YWdDbG90aGVzEk8KDmRlZmF1bHRfYWN0aW9uGCMgASgLMjcuaXRlbXMucHJv",
+            "dG9idWYuYXBwZWFyYW5jZXMuQXBwZWFyYW5jZUZsYWdEZWZhdWx0QWN0aW9u",
+            "EkAKBm1hcmtldBgkIAEoCzIwLml0ZW1zLnByb3RvYnVmLmFwcGVhcmFuY2Vz",
+            "LkFwcGVhcmFuY2VGbGFnTWFya2V0EgwKBHdyYXAYJSABKAgSDgoGdW53cmFw",
+            "GCYgASgIEhEKCXRvcGVmZmVjdBgnIAEoCBJCCgtucGNzYWxlZGF0YRgoIAMo",
+            "CzItLml0ZW1zLnByb3RvYnVmLmFwcGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFn",
+            "TlBDElIKD2NoYW5nZWR0b2V4cGlyZRgpIAEoCzI5Lml0ZW1zLnByb3RvYnVm",
+            "LmFwcGVhcmFuY2VzLkFwcGVhcmFuY2VGbGFnQ2hhbmdlZFRvRXhwaXJlEg4K",
+            "BmNvcnBzZRgqIAEoCBIVCg1wbGF5ZXJfY29ycHNlGCsgASgIEkwKDmN5Y2xv",
+            "cGVkaWFpdGVtGCwgASgLMjQuaXRlbXMucHJvdG9idWYuYXBwZWFyYW5jZXMu",
+            "QXBwZWFyYW5jZUZsYWdDeWNsb3BlZGlhEgwKBGFtbW8YLSABKAgSFwoPc2hv",
+            "d19vZmZfc29ja2V0GC4gASgIEhIKCnJlcG9ydGFibGUYLyABKAgSXgoVdXBn",
+            "cmFkZWNsYXNzaWZpY2F0aW9uGDAgASgLMj8uaXRlbXMucHJvdG9idWYuYXBw",
+            "ZWFyYW5jZXMuQXBwZWFyYW5jZUZsYWdVcGdyYWRlQ2xhc3NpZmljYXRpb24i",
+            "RQojQXBwZWFyYW5jZUZsYWdVcGdyYWRlQ2xhc3NpZmljYXRpb24SHgoWdXBn",
+            "cmFkZV9jbGFzc2lmaWNhdGlvbhgBIAEoDSInChJBcHBlYXJhbmNlRmxhZ0Jh",
+            "bmsSEQoJd2F5cG9pbnRzGAEgASgNIi4KE0FwcGVhcmFuY2VGbGFnV3JpdGUS",
+            "FwoPbWF4X3RleHRfbGVuZ3RoGAEgASgNIjcKF0FwcGVhcmFuY2VGbGFnV3Jp",
+            "dGVPbmNlEhwKFG1heF90ZXh0X2xlbmd0aF9vbmNlGAEgASgNIjgKE0FwcGVh",
+            "cmFuY2VGbGFnTGlnaHQSEgoKYnJpZ2h0bmVzcxgBIAEoDRINCgVjb2xvchgC",
+            "IAEoDSIpChRBcHBlYXJhbmNlRmxhZ0hlaWdodBIRCgllbGV2YXRpb24YASAB",
+            "KA0iKwoTQXBwZWFyYW5jZUZsYWdTaGlmdBIJCgF4GAEgASgNEgkKAXkYAiAB",
+            "KA0iJQoVQXBwZWFyYW5jZUZsYWdDbG90aGVzEgwKBHNsb3QYASABKA0iUwob",
+            "QXBwZWFyYW5jZUZsYWdEZWZhdWx0QWN0aW9uEjQKBmFjdGlvbhgBIAEoDjIk",
+            "Lml0ZW1zLnByb3RvYnVmLnNoYXJlZC5QTEFZRVJfQUNUSU9OIuYBChRBcHBl",
+            "YXJhbmNlRmxhZ01hcmtldBI2CghjYXRlZ29yeRgBIAEoDjIkLml0ZW1zLnBy",
+            "b3RvYnVmLnNoYXJlZC5JVEVNX0NBVEVHT1JZEhoKEnRyYWRlX2FzX29iamVj",
+            "dF9pZBgCIAEoDRIZChFzaG93X2FzX29iamVjdF9pZBgDIAEoDRJIChZyZXN0",
+            "cmljdF90b19wcm9mZXNzaW9uGAUgAygOMiguaXRlbXMucHJvdG9idWYuc2hh",
+            "cmVkLlBMQVlFUl9QUk9GRVNTSU9OEhUKDW1pbmltdW1fbGV2ZWwYBiABKA0i",
+            "pQEKEUFwcGVhcmFuY2VGbGFnTlBDEgwKBG5hbWUYASABKAkSEAoIbG9jYXRp",
+            "b24YAiABKAkSEgoKc2FsZV9wcmljZRgDIAEoDRIRCglidXlfcHJpY2UYBCAB",
+            "KA0SHwoXY3VycmVuY3lfb2JqZWN0X3R5cGVfaWQYBSABKA0SKAogY3VycmVu",
+            "Y3lfcXVlc3RfZmxhZ19kaXNwbGF5X25hbWUYBiABKAkiJgoVQXBwZWFyYW5j",
+            "ZUZsYWdBdXRvbWFwEg0KBWNvbG9yGAEgASgNIkkKEkFwcGVhcmFuY2VGbGFn",
+            "SG9vaxIzCglkaXJlY3Rpb24YASABKA4yIC5pdGVtcy5wcm90b2J1Zi5zaGFy",
+            "ZWQuSE9PS19UWVBFIiQKFkFwcGVhcmFuY2VGbGFnTGVuc2hlbHASCgoCaWQY",
+            "ASABKA0iPQodQXBwZWFyYW5jZUZsYWdDaGFuZ2VkVG9FeHBpcmUSHAoUZm9y",
+            "bWVyX29iamVjdF90eXBlaWQYASABKA0iMwoYQXBwZWFyYW5jZUZsYWdDeWNs",
+            "b3BlZGlhEhcKD2N5Y2xvcGVkaWFfdHlwZRgBIAEoDSKzAQobU3BlY2lhbE1l",
+            "YW5pbmdBcHBlYXJhbmNlSWRzEhQKDGdvbGRfY29pbl9pZBgBIAEoDRIYChBw",
+            "bGF0aW51bV9jb2luX2lkGAIgASgNEhcKD2NyeXN0YWxfY29pbl9pZBgDIAEo",
+            "DRIXCg9zcGVjaWFsX2NvaW5faWQYBCABKA0SGQoRc3RhbXBlZF9sZXR0ZXJf",
+            "aWQYBSABKA0SFwoPc3VwcGx5X3N0YXNoX2lkGAYgASgNKoEBChFGSVhFRF9G",
+            "UkFNRV9HUk9VUBIhCh1GSVhFRF9GUkFNRV9HUk9VUF9PVVRGSVRfSURMRRAA",
+            "EiMKH0ZJWEVEX0ZSQU1FX0dST1VQX09VVEZJVF9NT1ZJTkcQARIkCiBGSVhF",
+            "RF9GUkFNRV9HUk9VUF9PQkpFQ1RfSU5JVElBTBAC"));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { global::Items.Protobuf.Shared.SharedReflection.Descriptor, },
           new pbr::GeneratedClrTypeInfo(new[] {typeof(global::Items.Protobuf.Appearances.FIXED_FRAME_GROUP), }, null, new pbr::GeneratedClrTypeInfo[] {
@@ -138,7 +137,8 @@ namespace Items.Protobuf.Appearances {
             new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.SpriteInfo), global::Items.Protobuf.Appearances.SpriteInfo.Parser, new[]{ "PatternWidth", "PatternHeight", "PatternDepth", "Layers", "SpriteId", "BoundingSquare", "Animation", "IsOpaque", "BoundingBoxPerDirection" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.FrameGroup), global::Items.Protobuf.Appearances.FrameGroup.Parser, new[]{ "FixedFrameGroup", "Id", "SpriteInfo" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.Appearance), global::Items.Protobuf.Appearances.Appearance.Parser, new[]{ "Id", "FrameGroup", "Flags", "Name", "Description" }, null, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.AppearanceFlags), global::Items.Protobuf.Appearances.AppearanceFlags.Parser, new[]{ "Bank", "Clip", "Bottom", "Top", "Container", "Cumulative", "Usable", "Forceuse", "Multiuse", "Write", "WriteOnce", "Liquidpool", "Unpass", "Unmove", "Unsight", "Avoid", "NoMovementAnimation", "Take", "Liquidcontainer", "Hang", "Hook", "Rotate", "Light", "DontHide", "Translucent", "Shift", "Height", "LyingObject", "AnimateAlways", "Automap", "Lenshelp", "Fullbank", "IgnoreLook", "Clothes", "DefaultAction", "Market", "Wrap", "Unwrap", "Topeffect", "Npcsaledata", "Changedtoexpire", "Corpse", "PlayerCorpse", "Cyclopediaitem", "Ammo", "Podium" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.AppearanceFlags), global::Items.Protobuf.Appearances.AppearanceFlags.Parser, new[]{ "Bank", "Clip", "Bottom", "Top", "Container", "Cumulative", "Usable", "Forceuse", "Multiuse", "Write", "WriteOnce", "Liquidpool", "Unpass", "Unmove", "Unsight", "Avoid", "NoMovementAnimation", "Take", "Liquidcontainer", "Hang", "Hook", "Rotate", "Light", "DontHide", "Translucent", "Shift", "Height", "LyingObject", "AnimateAlways", "Automap", "Lenshelp", "Fullbank", "IgnoreLook", "Clothes", "DefaultAction", "Market", "Wrap", "Unwrap", "Topeffect", "Npcsaledata", "Changedtoexpire", "Corpse", "PlayerCorpse", "Cyclopediaitem", "Ammo", "ShowOffSocket", "Reportable", "Upgradeclassification" }, null, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.AppearanceFlagUpgradeClassification), global::Items.Protobuf.Appearances.AppearanceFlagUpgradeClassification.Parser, new[]{ "UpgradeClassification" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.AppearanceFlagBank), global::Items.Protobuf.Appearances.AppearanceFlagBank.Parser, new[]{ "Waypoints" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.AppearanceFlagWrite), global::Items.Protobuf.Appearances.AppearanceFlagWrite.Parser, new[]{ "MaxTextLength" }, null, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Items.Protobuf.Appearances.AppearanceFlagWriteOnce), global::Items.Protobuf.Appearances.AppearanceFlagWriteOnce.Parser, new[]{ "MaxTextLengthOnce" }, null, null, null, null),
@@ -402,7 +402,7 @@ namespace Items.Protobuf.Appearances {
           }
           case 42: {
             if (specialMeaningAppearanceIds_ == null) {
-              SpecialMeaningAppearanceIds = new global::Clienteditor.Protobuf.Appearances.SpecialMeaningAppearanceIds();
+              SpecialMeaningAppearanceIds = new global::Items.Protobuf.Appearances.SpecialMeaningAppearanceIds();
             }
             input.ReadMessage(SpecialMeaningAppearanceIds);
             break;
@@ -1039,7 +1039,7 @@ namespace Items.Protobuf.Appearances {
             break;
           }
           case 32: {
-            LoopType = (global::Clienteditor.Protobuf.Shared.ANIMATION_LOOP_TYPE) input.ReadEnum();
+            LoopType = (global::Items.Protobuf.Shared.ANIMATION_LOOP_TYPE) input.ReadEnum();
             break;
           }
           case 40: {
@@ -1880,7 +1880,7 @@ namespace Items.Protobuf.Appearances {
           }
           case 50: {
             if (animation_ == null) {
-              Animation = new global::Clienteditor.Protobuf.Appearances.SpriteAnimation();
+              Animation = new global::Items.Protobuf.Appearances.SpriteAnimation();
             }
             input.ReadMessage(Animation);
             break;
@@ -2189,7 +2189,7 @@ namespace Items.Protobuf.Appearances {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            FixedFrameGroup = (global::Clienteditor.Protobuf.Appearances.FIXED_FRAME_GROUP) input.ReadEnum();
+            FixedFrameGroup = (global::Items.Protobuf.Appearances.FIXED_FRAME_GROUP) input.ReadEnum();
             break;
           }
           case 16: {
@@ -2198,7 +2198,7 @@ namespace Items.Protobuf.Appearances {
           }
           case 26: {
             if (spriteInfo_ == null) {
-              SpriteInfo = new global::Clienteditor.Protobuf.Appearances.SpriteInfo();
+              SpriteInfo = new global::Items.Protobuf.Appearances.SpriteInfo();
             }
             input.ReadMessage(SpriteInfo);
             break;
@@ -2535,7 +2535,7 @@ namespace Items.Protobuf.Appearances {
           }
           case 26: {
             if (flags_ == null) {
-              Flags = new global::Clienteditor.Protobuf.Appearances.AppearanceFlags();
+              Flags = new global::Items.Protobuf.Appearances.AppearanceFlags();
             }
             input.ReadMessage(Flags);
             break;
@@ -2600,6 +2600,7 @@ namespace Items.Protobuf.Appearances {
     private static readonly pb::MessageParser<AppearanceFlags> _parser = new pb::MessageParser<AppearanceFlags>(() => new AppearanceFlags());
     private pb::UnknownFieldSet _unknownFields;
     private int _hasBits0;
+    private int _hasBits1;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pb::MessageParser<AppearanceFlags> Parser { get { return _parser; } }
 
@@ -2623,6 +2624,7 @@ namespace Items.Protobuf.Appearances {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public AppearanceFlags(AppearanceFlags other) : this() {
       _hasBits0 = other._hasBits0;
+      _hasBits1 = other._hasBits1;
       bank_ = other.bank_ != null ? other.bank_.Clone() : null;
       clip_ = other.clip_;
       bottom_ = other.bottom_;
@@ -2668,7 +2670,9 @@ namespace Items.Protobuf.Appearances {
       playerCorpse_ = other.playerCorpse_;
       cyclopediaitem_ = other.cyclopediaitem_ != null ? other.cyclopediaitem_.Clone() : null;
       ammo_ = other.ammo_;
-      podium_ = other.podium_;
+      showOffSocket_ = other.showOffSocket_;
+      reportable_ = other.reportable_;
+      upgradeclassification_ = other.upgradeclassification_ != null ? other.upgradeclassification_.Clone() : null;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -3561,28 +3565,63 @@ namespace Items.Protobuf.Appearances {
       _hasBits0 &= ~536870912;
     }
 
-    /// <summary>Field number for the "podium" field.</summary>
-    public const int PodiumFieldNumber = 46;
-    private readonly static bool PodiumDefaultValue = false;
+    /// <summary>Field number for the "show_off_socket" field.</summary>
+    public const int ShowOffSocketFieldNumber = 46;
+    private readonly static bool ShowOffSocketDefaultValue = false;
 
-    private bool podium_;
+    private bool showOffSocket_;
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool Podium {
-      get { if ((_hasBits0 & 1073741824) != 0) { return podium_; } else { return PodiumDefaultValue; } }
+    public bool ShowOffSocket {
+      get { if ((_hasBits0 & 1073741824) != 0) { return showOffSocket_; } else { return ShowOffSocketDefaultValue; } }
       set {
         _hasBits0 |= 1073741824;
-        podium_ = value;
+        showOffSocket_ = value;
       }
     }
-    /// <summary>Gets whether the "podium" field is set</summary>
+    /// <summary>Gets whether the "show_off_socket" field is set</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public bool HasPodium {
+    public bool HasShowOffSocket {
       get { return (_hasBits0 & 1073741824) != 0; }
     }
-    /// <summary>Clears the value of the "podium" field</summary>
+    /// <summary>Clears the value of the "show_off_socket" field</summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public void ClearPodium() {
+    public void ClearShowOffSocket() {
       _hasBits0 &= ~1073741824;
+    }
+
+    /// <summary>Field number for the "reportable" field.</summary>
+    public const int ReportableFieldNumber = 47;
+    private readonly static bool ReportableDefaultValue = false;
+
+    private bool reportable_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Reportable {
+      get { if ((_hasBits0 & -2147483648) != 0) { return reportable_; } else { return ReportableDefaultValue; } }
+      set {
+        _hasBits0 |= -2147483648;
+        reportable_ = value;
+      }
+    }
+    /// <summary>Gets whether the "reportable" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool HasReportable {
+      get { return (_hasBits0 & -2147483648) != 0; }
+    }
+    /// <summary>Clears the value of the "reportable" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void ClearReportable() {
+      _hasBits0 &= ~-2147483648;
+    }
+
+    /// <summary>Field number for the "upgradeclassification" field.</summary>
+    public const int UpgradeclassificationFieldNumber = 48;
+    private global::Items.Protobuf.Appearances.AppearanceFlagUpgradeClassification upgradeclassification_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public global::Items.Protobuf.Appearances.AppearanceFlagUpgradeClassification Upgradeclassification {
+      get { return upgradeclassification_; }
+      set {
+        upgradeclassification_ = value;
+      }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -3643,7 +3682,9 @@ namespace Items.Protobuf.Appearances {
       if (PlayerCorpse != other.PlayerCorpse) return false;
       if (!object.Equals(Cyclopediaitem, other.Cyclopediaitem)) return false;
       if (Ammo != other.Ammo) return false;
-      if (Podium != other.Podium) return false;
+      if (ShowOffSocket != other.ShowOffSocket) return false;
+      if (Reportable != other.Reportable) return false;
+      if (!object.Equals(Upgradeclassification, other.Upgradeclassification)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
 
@@ -3695,7 +3736,9 @@ namespace Items.Protobuf.Appearances {
       if (HasPlayerCorpse) hash ^= PlayerCorpse.GetHashCode();
       if (cyclopediaitem_ != null) hash ^= Cyclopediaitem.GetHashCode();
       if (HasAmmo) hash ^= Ammo.GetHashCode();
-      if (HasPodium) hash ^= Podium.GetHashCode();
+      if (HasShowOffSocket) hash ^= ShowOffSocket.GetHashCode();
+      if (HasReportable) hash ^= Reportable.GetHashCode();
+      if (upgradeclassification_ != null) hash ^= Upgradeclassification.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -3889,9 +3932,17 @@ namespace Items.Protobuf.Appearances {
         output.WriteRawTag(232, 2);
         output.WriteBool(Ammo);
       }
-      if (HasPodium) {
+      if (HasShowOffSocket) {
         output.WriteRawTag(240, 2);
-        output.WriteBool(Podium);
+        output.WriteBool(ShowOffSocket);
+      }
+      if (HasReportable) {
+        output.WriteRawTag(248, 2);
+        output.WriteBool(Reportable);
+      }
+      if (upgradeclassification_ != null) {
+        output.WriteRawTag(130, 3);
+        output.WriteMessage(Upgradeclassification);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -4079,9 +4130,17 @@ namespace Items.Protobuf.Appearances {
         output.WriteRawTag(232, 2);
         output.WriteBool(Ammo);
       }
-      if (HasPodium) {
+      if (HasShowOffSocket) {
         output.WriteRawTag(240, 2);
-        output.WriteBool(Podium);
+        output.WriteBool(ShowOffSocket);
+      }
+      if (HasReportable) {
+        output.WriteRawTag(248, 2);
+        output.WriteBool(Reportable);
+      }
+      if (upgradeclassification_ != null) {
+        output.WriteRawTag(130, 3);
+        output.WriteMessage(Upgradeclassification);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(ref output);
@@ -4225,8 +4284,14 @@ namespace Items.Protobuf.Appearances {
       if (HasAmmo) {
         size += 2 + 1;
       }
-      if (HasPodium) {
+      if (HasShowOffSocket) {
         size += 2 + 1;
+      }
+      if (HasReportable) {
+        size += 2 + 1;
+      }
+      if (upgradeclassification_ != null) {
+        size += 2 + pb::CodedOutputStream.ComputeMessageSize(Upgradeclassification);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -4414,8 +4479,17 @@ namespace Items.Protobuf.Appearances {
       if (other.HasAmmo) {
         Ammo = other.Ammo;
       }
-      if (other.HasPodium) {
-        Podium = other.Podium;
+      if (other.HasShowOffSocket) {
+        ShowOffSocket = other.ShowOffSocket;
+      }
+      if (other.HasReportable) {
+        Reportable = other.Reportable;
+      }
+      if (other.upgradeclassification_ != null) {
+        if (upgradeclassification_ == null) {
+          Upgradeclassification = new global::Items.Protobuf.Appearances.AppearanceFlagUpgradeClassification();
+        }
+        Upgradeclassification.MergeFrom(other.Upgradeclassification);
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -4433,7 +4507,7 @@ namespace Items.Protobuf.Appearances {
             break;
           case 10: {
             if (bank_ == null) {
-              Bank = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagBank();
+              Bank = new global::Items.Protobuf.Appearances.AppearanceFlagBank();
             }
             input.ReadMessage(Bank);
             break;
@@ -4472,14 +4546,14 @@ namespace Items.Protobuf.Appearances {
           }
           case 82: {
             if (write_ == null) {
-              Write = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagWrite();
+              Write = new global::Items.Protobuf.Appearances.AppearanceFlagWrite();
             }
             input.ReadMessage(Write);
             break;
           }
           case 90: {
             if (writeOnce_ == null) {
-              WriteOnce = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagWriteOnce();
+              WriteOnce = new global::Items.Protobuf.Appearances.AppearanceFlagWriteOnce();
             }
             input.ReadMessage(WriteOnce);
             break;
@@ -4522,7 +4596,7 @@ namespace Items.Protobuf.Appearances {
           }
           case 170: {
             if (hook_ == null) {
-              Hook = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagHook();
+              Hook = new global::Items.Protobuf.Appearances.AppearanceFlagHook();
             }
             input.ReadMessage(Hook);
             break;
@@ -4533,7 +4607,7 @@ namespace Items.Protobuf.Appearances {
           }
           case 186: {
             if (light_ == null) {
-              Light = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagLight();
+              Light = new global::Items.Protobuf.Appearances.AppearanceFlagLight();
             }
             input.ReadMessage(Light);
             break;
@@ -4548,14 +4622,14 @@ namespace Items.Protobuf.Appearances {
           }
           case 210: {
             if (shift_ == null) {
-              Shift = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagShift();
+              Shift = new global::Items.Protobuf.Appearances.AppearanceFlagShift();
             }
             input.ReadMessage(Shift);
             break;
           }
           case 218: {
             if (height_ == null) {
-              Height = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagHeight();
+              Height = new global::Items.Protobuf.Appearances.AppearanceFlagHeight();
             }
             input.ReadMessage(Height);
             break;
@@ -4570,14 +4644,14 @@ namespace Items.Protobuf.Appearances {
           }
           case 242: {
             if (automap_ == null) {
-              Automap = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagAutomap();
+              Automap = new global::Items.Protobuf.Appearances.AppearanceFlagAutomap();
             }
             input.ReadMessage(Automap);
             break;
           }
           case 250: {
             if (lenshelp_ == null) {
-              Lenshelp = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagLenshelp();
+              Lenshelp = new global::Items.Protobuf.Appearances.AppearanceFlagLenshelp();
             }
             input.ReadMessage(Lenshelp);
             break;
@@ -4592,21 +4666,21 @@ namespace Items.Protobuf.Appearances {
           }
           case 274: {
             if (clothes_ == null) {
-              Clothes = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagClothes();
+              Clothes = new global::Items.Protobuf.Appearances.AppearanceFlagClothes();
             }
             input.ReadMessage(Clothes);
             break;
           }
           case 282: {
             if (defaultAction_ == null) {
-              DefaultAction = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagDefaultAction();
+              DefaultAction = new global::Items.Protobuf.Appearances.AppearanceFlagDefaultAction();
             }
             input.ReadMessage(DefaultAction);
             break;
           }
           case 290: {
             if (market_ == null) {
-              Market = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagMarket();
+              Market = new global::Items.Protobuf.Appearances.AppearanceFlagMarket();
             }
             input.ReadMessage(Market);
             break;
@@ -4629,7 +4703,7 @@ namespace Items.Protobuf.Appearances {
           }
           case 330: {
             if (changedtoexpire_ == null) {
-              Changedtoexpire = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagChangedToExpire();
+              Changedtoexpire = new global::Items.Protobuf.Appearances.AppearanceFlagChangedToExpire();
             }
             input.ReadMessage(Changedtoexpire);
             break;
@@ -4644,7 +4718,7 @@ namespace Items.Protobuf.Appearances {
           }
           case 354: {
             if (cyclopediaitem_ == null) {
-              Cyclopediaitem = new global::Clienteditor.Protobuf.Appearances.AppearanceFlagCyclopedia();
+              Cyclopediaitem = new global::Items.Protobuf.Appearances.AppearanceFlagCyclopedia();
             }
             input.ReadMessage(Cyclopediaitem);
             break;
@@ -4654,7 +4728,18 @@ namespace Items.Protobuf.Appearances {
             break;
           }
           case 368: {
-            Podium = input.ReadBool();
+            ShowOffSocket = input.ReadBool();
+            break;
+          }
+          case 376: {
+            Reportable = input.ReadBool();
+            break;
+          }
+          case 386: {
+            if (upgradeclassification_ == null) {
+              Upgradeclassification = new global::Items.Protobuf.Appearances.AppearanceFlagUpgradeClassification();
+            }
+            input.ReadMessage(Upgradeclassification);
             break;
           }
         }
@@ -4894,7 +4979,205 @@ namespace Items.Protobuf.Appearances {
             break;
           }
           case 368: {
-            Podium = input.ReadBool();
+            ShowOffSocket = input.ReadBool();
+            break;
+          }
+          case 376: {
+            Reportable = input.ReadBool();
+            break;
+          }
+          case 386: {
+            if (upgradeclassification_ == null) {
+              Upgradeclassification = new global::Items.Protobuf.Appearances.AppearanceFlagUpgradeClassification();
+            }
+            input.ReadMessage(Upgradeclassification);
+            break;
+          }
+        }
+      }
+    }
+    #endif
+
+  }
+
+  public sealed partial class AppearanceFlagUpgradeClassification : pb::IMessage<AppearanceFlagUpgradeClassification>
+  #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      , pb::IBufferMessage
+  #endif
+  {
+    private static readonly pb::MessageParser<AppearanceFlagUpgradeClassification> _parser = new pb::MessageParser<AppearanceFlagUpgradeClassification>(() => new AppearanceFlagUpgradeClassification());
+    private pb::UnknownFieldSet _unknownFields;
+    private int _hasBits0;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pb::MessageParser<AppearanceFlagUpgradeClassification> Parser { get { return _parser; } }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public static pbr::MessageDescriptor Descriptor {
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[8]; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    pbr::MessageDescriptor pb::IMessage.Descriptor {
+      get { return Descriptor; }
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AppearanceFlagUpgradeClassification() {
+      OnConstruction();
+    }
+
+    partial void OnConstruction();
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AppearanceFlagUpgradeClassification(AppearanceFlagUpgradeClassification other) : this() {
+      _hasBits0 = other._hasBits0;
+      upgradeClassification_ = other.upgradeClassification_;
+      _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public AppearanceFlagUpgradeClassification Clone() {
+      return new AppearanceFlagUpgradeClassification(this);
+    }
+
+    /// <summary>Field number for the "upgrade_classification" field.</summary>
+    public const int UpgradeClassificationFieldNumber = 1;
+    private readonly static uint UpgradeClassificationDefaultValue = 0;
+
+    private uint upgradeClassification_;
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public uint UpgradeClassification {
+      get { if ((_hasBits0 & 1) != 0) { return upgradeClassification_; } else { return UpgradeClassificationDefaultValue; } }
+      set {
+        _hasBits0 |= 1;
+        upgradeClassification_ = value;
+      }
+    }
+    /// <summary>Gets whether the "upgrade_classification" field is set</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool HasUpgradeClassification {
+      get { return (_hasBits0 & 1) != 0; }
+    }
+    /// <summary>Clears the value of the "upgrade_classification" field</summary>
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void ClearUpgradeClassification() {
+      _hasBits0 &= ~1;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override bool Equals(object other) {
+      return Equals(other as AppearanceFlagUpgradeClassification);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public bool Equals(AppearanceFlagUpgradeClassification other) {
+      if (ReferenceEquals(other, null)) {
+        return false;
+      }
+      if (ReferenceEquals(other, this)) {
+        return true;
+      }
+      if (UpgradeClassification != other.UpgradeClassification) return false;
+      return Equals(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override int GetHashCode() {
+      int hash = 1;
+      if (HasUpgradeClassification) hash ^= UpgradeClassification.GetHashCode();
+      if (_unknownFields != null) {
+        hash ^= _unknownFields.GetHashCode();
+      }
+      return hash;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public override string ToString() {
+      return pb::JsonFormatter.ToDiagnosticString(this);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void WriteTo(pb::CodedOutputStream output) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      output.WriteRawMessage(this);
+    #else
+      if (HasUpgradeClassification) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(UpgradeClassification);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(output);
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalWriteTo(ref pb::WriteContext output) {
+      if (HasUpgradeClassification) {
+        output.WriteRawTag(8);
+        output.WriteUInt32(UpgradeClassification);
+      }
+      if (_unknownFields != null) {
+        _unknownFields.WriteTo(ref output);
+      }
+    }
+    #endif
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public int CalculateSize() {
+      int size = 0;
+      if (HasUpgradeClassification) {
+        size += 1 + pb::CodedOutputStream.ComputeUInt32Size(UpgradeClassification);
+      }
+      if (_unknownFields != null) {
+        size += _unknownFields.CalculateSize();
+      }
+      return size;
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(AppearanceFlagUpgradeClassification other) {
+      if (other == null) {
+        return;
+      }
+      if (other.HasUpgradeClassification) {
+        UpgradeClassification = other.UpgradeClassification;
+      }
+      _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
+    }
+
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    public void MergeFrom(pb::CodedInputStream input) {
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+      input.ReadRawMessage(this);
+    #else
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
+            break;
+          case 8: {
+            UpgradeClassification = input.ReadUInt32();
+            break;
+          }
+        }
+      }
+    #endif
+    }
+
+    #if !GOOGLE_PROTOBUF_REFSTRUCT_COMPATIBILITY_MODE
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
+    void pb::IBufferMessage.InternalMergeFrom(ref pb::ParseContext input) {
+      uint tag;
+      while ((tag = input.ReadTag()) != 0) {
+        switch(tag) {
+          default:
+            _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, ref input);
+            break;
+          case 8: {
+            UpgradeClassification = input.ReadUInt32();
             break;
           }
         }
@@ -4917,7 +5200,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[8]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[9]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5104,7 +5387,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[9]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[10]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5291,7 +5574,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[10]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[11]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5478,7 +5761,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[11]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[12]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5714,7 +5997,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[12]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[13]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -5901,7 +6184,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[13]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[14]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6137,7 +6420,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[14]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[15]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6324,7 +6607,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[15]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[16]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6470,7 +6753,7 @@ namespace Items.Protobuf.Appearances {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Action = (global::Clienteditor.Protobuf.Shared.PLAYER_ACTION) input.ReadEnum();
+            Action = (global::Items.Protobuf.Shared.PLAYER_ACTION) input.ReadEnum();
             break;
           }
         }
@@ -6511,7 +6794,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[16]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[17]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -6797,7 +7080,7 @@ namespace Items.Protobuf.Appearances {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Category = (global::Clienteditor.Protobuf.Shared.ITEM_CATEGORY) input.ReadEnum();
+            Category = (global::Items.Protobuf.Shared.ITEM_CATEGORY) input.ReadEnum();
             break;
           }
           case 16: {
@@ -6872,7 +7155,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[17]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[18]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7301,7 +7584,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[18]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[19]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7488,7 +7771,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[19]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[20]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7634,7 +7917,7 @@ namespace Items.Protobuf.Appearances {
             _unknownFields = pb::UnknownFieldSet.MergeFieldFrom(_unknownFields, input);
             break;
           case 8: {
-            Direction = (global::Clienteditor.Protobuf.Shared.HOOK_TYPE) input.ReadEnum();
+            Direction = (global::Items.Protobuf.Shared.HOOK_TYPE) input.ReadEnum();
             break;
           }
         }
@@ -7675,7 +7958,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[20]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[21]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -7862,7 +8145,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[21]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[22]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8049,7 +8332,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[22]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[23]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
@@ -8236,7 +8519,7 @@ namespace Items.Protobuf.Appearances {
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public static pbr::MessageDescriptor Descriptor {
-      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[23]; }
+      get { return global::Items.Protobuf.Appearances.AppearancesReflection.Descriptor.MessageTypes[24]; }
     }
 
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
