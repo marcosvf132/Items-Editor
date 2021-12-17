@@ -308,6 +308,29 @@ namespace Devm_items_editor
             #endregion
         }
 
+        private void ParseLootTypeToTransformations(Item source, int transformTo)
+        {
+            Item item = _parent.GetItemByID(transformTo);
+            if (source == null || item == null) {
+                return;
+            }
+
+            for (int itemId = item.FromID; itemId <= item.ToID; itemId++) {
+                Item itemIt = _parent.GetItemByID(itemId);
+                if (itemIt != null && (string.IsNullOrEmpty(itemIt.LootType) || itemIt.FromID == source.FromID)) {
+                    itemIt.LootType = source.LootType;
+
+                    if (itemIt.EquipTo != int.MinValue) {
+                        ParseLootTypeToTransformations(source, itemIt.EquipTo);
+                    }
+
+                    if (itemIt.DequipTo != int.MinValue) {
+                        ParseLootTypeToTransformations(source, itemIt.DequipTo);
+                    }
+                }
+            }
+        }
+
         #endregion
 
         #region Async wiki worker
@@ -419,22 +442,22 @@ namespace Devm_items_editor
                             continue;
                         }
 
-                        if (wikiObject.Article != null && wikiObject.Article.Length > 0) {
-                            item.Article = wikiObject.Article;
-                        }
+                        //if (wikiObject.Article != null && wikiObject.Article.Length > 0) {
+                        //    item.Article = wikiObject.Article;
+                        //}
 
                         // Empty plural are '?' char.
-                        if (wikiObject.Plural != null && wikiObject.Plural.Length > 1) {
-                            item.Plural = wikiObject.Plural;
-                        }
+                        //if (wikiObject.Plural != null && wikiObject.Plural.Length > 1) {
+                        //    item.Plural = wikiObject.Plural;
+                        //}
 
-                        if (wikiObject.FlavorText != null && wikiObject.FlavorText.Length > 0) {
-                            item.Description = wikiObject.FlavorText;
-                        }
+                        //if (wikiObject.FlavorText != null && wikiObject.FlavorText.Length > 0) {
+                        //    item.Description = wikiObject.FlavorText;
+                        //}
 
-                        if (wikiObject.Words != null && wikiObject.Words.Length > 0) {
-                            item.RuneSpellName = wikiObject.Words;
-                        }
+                        //if (wikiObject.Words != null && wikiObject.Words.Length > 0) {
+                        //    item.RuneSpellName = wikiObject.Words;
+                        //}
 
                         item.ContainerSize = _parent.ParseStringToFinalInt(wikiObject.Volume, item.ContainerSize);
                         item.Attack = _parent.ParseStringToFinalInt(wikiObject.Attack, item.Attack);
@@ -459,7 +482,7 @@ namespace Devm_items_editor
                         if (wikiObject.Weight != null) {
                             item.Weight = (int)(double.Parse(wikiObject.Weight, InvariantCulture) * 100);
                         }
-                        item.Duration = _parent.ParseStringToFinalInt(wikiObject.Duration, item.Duration);
+                        //item.Duration = _parent.ParseStringToFinalInt(wikiObject.Duration, item.Duration);
                         success++;
 
                         if (item.Tag.Length == 0) {
@@ -576,20 +599,21 @@ namespace Devm_items_editor
                             }
 
                             if (itemObject.Flags != null) {
-                                if (itemObject.Flags.Market != null) {
-                                    string lootType = _parent.ParseProtobufItemCategoryToLootType(itemObject.Flags.Market.Category);
-                                    if (lootType.ToLower() != item.LootType.ToLower()) {
-                                        item.LootType = lootType;
-                                        isChanged = true;
-                                    }
-                                }
+                                //if (itemObject.Flags.Market != null) {
+                                //    string lootType = _parent.ParseProtobufItemCategoryToLootType(itemObject.Flags.Market.Category);
+                                //    if (lootType.ToLower() != item.LootType.ToLower()) {
+                                //        item.LootType = lootType;
+                                //        ParseLootTypeToTransformations(item, item.FromID);
+                                //        isChanged = true;
+                                //    }
+                                //}
 
                                 if (itemObject.Flags.ShowOffSocket) {
                                     item.IsPodium = true;
                                 }
 
                                 if (itemObject.Flags.Upgradeclassification != null) {
-                                    item.UpgradeClassification = (int)(itemObject.Flags.Upgradeclassification.UpgradeClassification);
+                                    item.UpgradeClassification = (int)itemObject.Flags.Upgradeclassification.UpgradeClassification;
                                 }
 
                             }
@@ -606,7 +630,6 @@ namespace Devm_items_editor
                     }
                 }
 
-                _asyncItems = _asyncItems.Distinct().ToList();
             } catch (Exception ex) {
                 _parent.AppendLog("[PROTOBUFF ERROR]:");
                 _parent.AppendLog(ex.Message);
@@ -628,6 +651,34 @@ namespace Devm_items_editor
         {
             if (_asyncItems.Count > 0) {
                 foreach (Item item in _asyncItems) {
+                    Item threadItem = _parent.GetItemByID(item.FromID);
+                    if (threadItem != null) {
+                        if (!string.IsNullOrEmpty(item.Name)) {
+                            threadItem.Name = item.Name;
+                        }
+                        
+                        if (!string.IsNullOrEmpty(item.Description)) {
+                            threadItem.Description = item.Description;
+                        }
+
+                        threadItem.ToID = item.ToID;
+                        continue;
+                    }
+
+                    threadItem = _parent.GetItemByID(item.ToID);
+                    if (threadItem != null) {
+                        if (!string.IsNullOrEmpty(item.Name)) {
+                            threadItem.Name = item.Name;
+                        }
+                        
+                        if (!string.IsNullOrEmpty(item.Description)) {
+                            threadItem.Description = item.Description;
+                        }
+
+                        threadItem.FromID = item.FromID;
+                        continue;
+                    }
+
                     _parent.ItemsList.Items.Add(item);
                 }
             }

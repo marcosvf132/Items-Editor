@@ -51,7 +51,6 @@ namespace Devm_items_editor
             ExtraDefense = int.MinValue;
             Attack = int.MinValue;
             RotateTo = int.MinValue;
-            ImbuingSlots = int.MinValue;
             WrapableTo = int.MinValue;
             ContainerSize = int.MinValue;
             MaxTextLenght = int.MinValue;
@@ -128,6 +127,26 @@ namespace Devm_items_editor
             ElementHoly = int.MinValue;
 
             UpgradeClassification = int.MinValue;
+
+            ImbuingSlots = int.MinValue;
+            ImbueElementalDamage = int.MinValue;
+            ImbueLifeLeech = int.MinValue;
+            ImbueManaLeech = int.MinValue;
+            ImbueCriticalHit = int.MinValue;
+            ImbueElementalProtectionDeath = int.MinValue;
+            ImbueElementalProtectionEarth = int.MinValue;
+            ImbueElementalProtectionFire = int.MinValue;
+            ImbueElementalProtectionIce = int.MinValue;
+            ImbueElementalProtectionEnergy = int.MinValue;
+            ImbueElementalProtectionHoly = int.MinValue;
+            ImbueIncreaseSpeed = int.MinValue;
+            ImbueSkillAxe = int.MinValue;
+            ImbueSkillSword = int.MinValue;
+            ImbueSkillClub = int.MinValue;
+            ImbueSkillShield = int.MinValue;
+            ImbueSkillDistance = int.MinValue;
+            ImbueSkillMagicLevel = int.MinValue;
+            ImbueIncreaseCapacity = int.MinValue;
             #endregion
 
             #region Bool values
@@ -212,7 +231,6 @@ namespace Devm_items_editor
         public int ExtraDefense { get; set; }
         public int Attack { get; set; }
         public int RotateTo { get; set; }
-        public int ImbuingSlots { get; set; }
         public int WrapableTo { get; set; }
         public int ContainerSize { get; set; }
         public int MaxTextLenght { get; set; }
@@ -289,6 +307,27 @@ namespace Devm_items_editor
         public int ElementHoly { get; set; }
 
         public int UpgradeClassification { get; set; }
+
+        public int ImbuingSlots { get; set; }
+        public int ImbueElementalDamage { get; set; }
+        public int ImbueLifeLeech { get; set; }
+        public int ImbueManaLeech { get; set; }
+        public int ImbueCriticalHit { get; set; }
+        public int ImbueElementalProtectionDeath { get; set; }
+        public int ImbueElementalProtectionEarth { get; set; }
+        public int ImbueElementalProtectionFire { get; set; }
+        public int ImbueElementalProtectionIce { get; set; }
+        public int ImbueElementalProtectionEnergy { get; set; }
+        public int ImbueElementalProtectionHoly { get; set; }
+        public int ImbueIncreaseSpeed { get; set; }
+        public int ImbueSkillAxe { get; set; }
+        public int ImbueSkillSword { get; set; }
+        public int ImbueSkillClub { get; set; }
+        public int ImbueSkillShield { get; set; }
+        public int ImbueSkillDistance { get; set; }
+        public int ImbueSkillMagicLevel { get; set; }
+        public int ImbueIncreaseCapacity { get; set; }
+
         #endregion
 
         #region Bool values
@@ -1031,6 +1070,26 @@ namespace Devm_items_editor
             ElementHoly.Text = item.ElementHoly != int.MinValue ? item.ElementHoly.ToString() : string.Empty;
 
             UpgradeClasssification.Text = item.UpgradeClassification != int.MinValue ? item.UpgradeClassification.ToString() : string.Empty;
+
+            ImbueElementalDamage.Text = item.ImbueElementalDamage != int.MinValue ? item.ImbueElementalDamage.ToString() : string.Empty;
+            ImbueLifeLeech.Text = item.ImbueLifeLeech != int.MinValue ? item.ImbueLifeLeech.ToString() : string.Empty;
+            ImbueManaLeech.Text = item.ImbueManaLeech != int.MinValue ? item.ImbueManaLeech.ToString() : string.Empty;
+            ImbuCriticalHit.Text = item.ImbueCriticalHit != int.MinValue ? item.ImbueCriticalHit.ToString() : string.Empty;
+            ImbueProtectDeath.Text = item.ImbueElementalProtectionDeath != int.MinValue ? item.ImbueElementalProtectionDeath.ToString() : string.Empty;
+            ImbueProtectEarth.Text = item.ImbueElementalProtectionEarth != int.MinValue ? item.ImbueElementalProtectionEarth.ToString() : string.Empty;
+            ImbueProtectFire.Text = item.ImbueElementalProtectionFire != int.MinValue ? item.ImbueElementalProtectionFire.ToString() : string.Empty;
+            ImbueProtectIce.Text = item.ImbueElementalProtectionIce != int.MinValue ? item.ImbueElementalProtectionIce.ToString() : string.Empty;
+            ImbueProtectEnergy.Text = item.ImbueElementalProtectionEnergy != int.MinValue ? item.ImbueElementalProtectionEnergy.ToString() : string.Empty;
+            ImbueProtectHoly.Text = item.ImbueElementalProtectionHoly != int.MinValue ? item.ImbueElementalProtectionHoly.ToString() : string.Empty;
+            ImbueSkillSpeed.Text = item.ImbueIncreaseSpeed != int.MinValue ? item.ImbueIncreaseSpeed.ToString() : string.Empty;
+            ImbueSkillAxe.Text = item.ImbueSkillAxe != int.MinValue ? item.ImbueSkillAxe.ToString() : string.Empty;
+            ImbueSkillMagicLvl.Text = item.ImbueSkillMagicLevel != int.MinValue ? item.ImbueSkillMagicLevel.ToString() : string.Empty;
+            ImbueSkillSword.Text = item.ImbueSkillSword != int.MinValue ? item.ImbueSkillSword.ToString() : string.Empty;
+            ImbueSkillClub.Text = item.ImbueSkillClub != int.MinValue ? item.ImbueSkillClub.ToString() : string.Empty;
+            ImbueSkillCapacity.Text = item.ImbueIncreaseCapacity != int.MinValue ? item.ImbueIncreaseCapacity.ToString() : string.Empty;
+            ImbueSkillShield.Text = item.ImbueSkillShield != int.MinValue ? item.ImbueSkillShield.ToString() : string.Empty;
+            ImbueSkillDistance.Text = item.ImbueSkillDistance != int.MinValue ? item.ImbueSkillDistance.ToString() : string.Empty;
+
             #endregion
 
             #region Boolean
@@ -1387,6 +1446,26 @@ namespace Devm_items_editor
             item.ElementHoly = ParseStringToFinalInt(ElementHoly.Text);
 
             item.UpgradeClassification = ParseStringToFinalInt(UpgradeClasssification.Text);
+
+            item.ImbueElementalDamage = ParseStringToFinalInt(ImbueElementalDamage.Text);
+            item.ImbueLifeLeech = ParseStringToFinalInt(ImbueLifeLeech.Text);
+            item.ImbueManaLeech = ParseStringToFinalInt(ImbueManaLeech.Text);
+            item.ImbueCriticalHit = ParseStringToFinalInt(ImbuCriticalHit.Text);
+            item.ImbueElementalProtectionDeath = ParseStringToFinalInt(ImbueProtectDeath.Text);
+            item.ImbueElementalProtectionEarth = ParseStringToFinalInt(ImbueProtectEarth.Text);
+            item.ImbueElementalProtectionFire = ParseStringToFinalInt(ImbueProtectFire.Text);
+            item.ImbueElementalProtectionIce = ParseStringToFinalInt(ImbueProtectIce.Text);
+            item.ImbueElementalProtectionEnergy = ParseStringToFinalInt(ImbueProtectEnergy.Text);
+            item.ImbueElementalProtectionHoly = ParseStringToFinalInt(ImbueProtectHoly.Text);
+            item.ImbueIncreaseSpeed = ParseStringToFinalInt(ImbueSkillSpeed.Text);
+            item.ImbueSkillAxe = ParseStringToFinalInt(ImbueSkillAxe.Text);
+            item.ImbueSkillMagicLevel = ParseStringToFinalInt(ImbueSkillMagicLvl.Text);
+            item.ImbueSkillSword = ParseStringToFinalInt(ImbueSkillSword.Text);
+            item.ImbueSkillClub = ParseStringToFinalInt(ImbueSkillClub.Text);
+            item.ImbueIncreaseCapacity = ParseStringToFinalInt(ImbueSkillCapacity.Text);
+            item.ImbueSkillShield = ParseStringToFinalInt(ImbueSkillShield.Text);
+            item.ImbueSkillDistance = ParseStringToFinalInt(ImbueSkillDistance.Text);
+
             #endregion
 
             #region Boolean
@@ -2424,7 +2503,7 @@ namespace Devm_items_editor
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.LootType;
                         itemNode.AppendChild(attributeNode);
                     }
-                
+
                     if (item.Field_Type.Length > 0) {
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "field";
@@ -2460,7 +2539,7 @@ namespace Devm_items_editor
 
                         itemNode.AppendChild(attributeNode);
                     }
-                
+
                     if (item.PartnerDirection.Length > 0) {
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "partnerdirection";
@@ -3113,13 +3192,6 @@ namespace Devm_items_editor
                         itemNode.AppendChild(attributeNode);
                     }
 
-                    if (item.ImbuingSlots != int.MinValue) {
-                        attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
-                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "imbuingslot";
-                        attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbuingSlots.ToString();
-                        itemNode.AppendChild(attributeNode);
-                    }
-
                     if (item.RotateTo != int.MinValue) {
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "rotateto";
@@ -3166,6 +3238,140 @@ namespace Devm_items_editor
                         attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "upgradeclassification";
                         attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.UpgradeClassification.ToString();
+                        itemNode.AppendChild(attributeNode);
+                    }
+                    
+                    if (item.ImbuingSlots != int.MinValue) {
+                        attributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                        attributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "imbuementslot";
+                        attributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbuingSlots.ToString();
+
+                        if (item.ImbueElementalDamage != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "elemental damage";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueElementalDamage.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueLifeLeech != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "life leech";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueLifeLeech.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueManaLeech != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "mana leech";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueManaLeech.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueCriticalHit != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "critical hit";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueCriticalHit.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueElementalProtectionDeath != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "elemental protection death";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueElementalProtectionDeath.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueElementalProtectionEarth != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "elemental protection earth";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueElementalProtectionEarth.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueElementalProtectionFire != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "elemental protection fire";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueElementalProtectionFire.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueElementalProtectionIce != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "elemental protection ice";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueElementalProtectionIce.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueElementalProtectionEnergy != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "elemental protection energy";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueElementalProtectionEnergy.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueElementalProtectionHoly != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "elemental protection holy";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueElementalProtectionHoly.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueIncreaseSpeed != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "increase speed";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueIncreaseSpeed.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueSkillAxe != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "skillboost axe";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueSkillAxe.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueSkillSword != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "skillboost sword";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueSkillSword.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueSkillClub != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "skillboost club";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueSkillClub.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueSkillShield != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "skillboost shielding";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueSkillShield.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueSkillDistance != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "skillboost distance";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueSkillDistance.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueSkillMagicLevel != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "skillboost magic level";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueSkillMagicLevel.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
+                        if (item.ImbueIncreaseCapacity != int.MinValue) {
+                            childAttributeNode = xml.CreateNode(XmlNodeType.Element, _itemChildNode, null);
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childKey)).Value = "increase capacity";
+                            childAttributeNode.Attributes.Append(xml.CreateAttribute(_childValue)).Value = item.ImbueIncreaseCapacity.ToString();
+                            attributeNode.AppendChild(childAttributeNode);
+                        }
+
                         itemNode.AppendChild(attributeNode);
                     }
 
@@ -3435,7 +3641,7 @@ namespace Devm_items_editor
                                                             break;
                                                         }
                                                     default: {
-                                                            throw new Exception("Unknown field attribute value inside '" + fieldChildKey + "' key, got '" + fieldChildKey + "'.");
+                                                            throw new Exception("Unknown field attribute value inside '" + childKey + "' field key, got '" + fieldChildKey + "'.");
                                                         }
                                                 }
                                             }
@@ -3497,11 +3703,110 @@ namespace Devm_items_editor
                                         error = false;
                                         break;
                                     }
-                                case "imbuingslot": {
-                                        item.ImbuingSlots = childValueInt;
-                                        error = false;
-                                        break;
+								case "imbuementslot": {
+                                    item.ImbuingSlots = childValueInt;
+                                    error = false;
+                                    if (itemChildNode.ChildNodes.Count > 0) {
+                                        foreach (XmlNode imbueNode in itemChildNode.ChildNodes) {
+											if (imbueNode.Name != _itemChildNode) {
+												throw new Exception("'" + _itemChildNode + "' node was expected inside '" + _itemNode + "', got '" + imbueNode.Name + "'.");
+											}
+													
+											string imbueChildKey = string.Empty;
+											string imbueChildValue = string.Empty;
+											foreach (XmlAttribute fieldChildAttribute in imbueNode.Attributes) {
+												if (fieldChildAttribute.Name == _childKey) {
+													imbueChildKey = fieldChildAttribute.Value;
+												} else if (fieldChildAttribute.Name == _childValue) {
+													imbueChildValue = fieldChildAttribute.Value;
+												} else {
+													throw new Exception("'" + _childKey + "' or '" + _childValue + "' node was expected inside '" + _itemChildNode + "' on 'field', got '" + fieldChildAttribute.Name + "'.");
+												}
+											}
+
+											imbueChildKey = imbueChildKey.ToLower();
+											switch (imbueChildKey) {
+												case "elemental damage": {
+													    item.ImbueElementalDamage = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "life leech": {
+													    item.ImbueLifeLeech = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "mana leech": {
+													    item.ImbueManaLeech = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "critical hit": {
+													    item.ImbueCriticalHit = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "elemental protection death": {
+													    item.ImbueElementalProtectionDeath = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "elemental protection earth": {
+													    item.ImbueElementalProtectionEarth = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "elemental protection fire": {
+													    item.ImbueElementalProtectionFire = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "elemental protection ice": {
+													    item.ImbueElementalProtectionIce = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "elemental protection energy": {
+													    item.ImbueElementalProtectionEnergy = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "elemental protection holy": {
+													    item.ImbueElementalProtectionHoly = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "increase speed": {
+													    item.ImbueIncreaseSpeed = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "skillboost axe": {
+													    item.ImbueSkillAxe = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "skillboost sword": {
+													    item.ImbueSkillSword = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "skillboost club": {
+													    item.ImbueSkillClub = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "skillboost shielding": {
+													    item.ImbueSkillShield = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "skillboost distance": {
+													    item.ImbueSkillDistance = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "skillboost magic level": {
+													    item.ImbueSkillMagicLevel = int.Parse(imbueChildValue);
+													    break;
+												    }
+												case "increase capacity": {
+													    item.ImbueIncreaseCapacity = int.Parse(imbueChildValue);
+													    break;
+												    }
+												default: {
+													throw new Exception("Unknown field attribute value inside '" + childKey + "' imbue key, got '" + imbueChildKey + "'.");
+												}
+											}
+                                        }
+
                                     }
+                                    break;
+                                }
                                 case "wrapableto": {
                                         item.WrapableTo = childValueInt;
                                         error = false;

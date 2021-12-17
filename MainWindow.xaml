@@ -976,6 +976,115 @@
                             </StackPanel>
                         </Grid>
                     </TabItem>
+                    <TabItem Header="Imbue">
+                        <Grid>
+                            <Rectangle MouseDown="MouseDownToDrag" Fill="#FFEFEFEF"/>
+                            <StackPanel Orientation="Vertical" VerticalAlignment="Top">
+                                <GroupBox Header="Data" Margin="0,25,0,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2" Background="#FFEFEFEF">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Elemental Damage:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueElementalDamage" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Critical hit:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbuCriticalHit" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Life leech:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueLifeLeech" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Mana leech:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueManaLeech" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Elemental protection" Margin="0,10,0,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2" Background="#FFEFEFEF">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Death:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueProtectDeath" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Earth:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueProtectEarth" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Fire:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueProtectFire" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Ice:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueProtectIce" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Energy:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueProtectEnergy" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Holy:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueProtectHoly" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                                <GroupBox Header="Skill boost" Margin="0,10,0,5" HorizontalAlignment="Center" Control:HeaderedControlHelper.HeaderBackground="#FF4D6886" BorderBrush="#FF4D6886" BorderThickness="2,2,2,2" Background="#FFEFEFEF">
+                                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,3,0,5">
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Speed:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSkillSpeed" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Axe:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSkillAxe" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Magic lvl:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSkillMagicLvl" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Sword:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSkillSword" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Club:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSkillClub" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Capacity:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSkillCapacity" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                        <StackPanel Orientation="Vertical" HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Shield:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSkillShield" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,0,0">
+                                                <TextBlock Text="Distance:" VerticalAlignment="Center" Margin="5,0,5,0"/>
+                                                <TextBox PreviewTextInput="NumberValidationTextBox" x:Name="ImbueSkillDistance" Width="50" TextAlignment="Center" Height="20" MinHeight="0" Padding="4,0,4,0" Control:ControlsHelper.FocusBorderThickness="1,1,1,1" Background="White" Control:ControlsHelper.FocusBorderBrush="#FF060606" Control:TextBoxHelper.Watermark="   --" Control:ControlsHelper.MouseOverBorderBrush="#FF616161" Control:TextBoxHelper.WatermarkAlignment="Center" BorderThickness="1,1,1,1" BorderBrush="#7F4D6886"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </StackPanel>
+                                </GroupBox>
+                            </StackPanel>
+                        </Grid>
+                    </TabItem>
                 </Control:MetroAnimatedTabControl>
             </ScrollViewer>
             <Button x:Name="SaveItemButton" ToolTip="You have unsaved data on this item." Content="Save" Margin="0,0,5,0" VerticalAlignment="Top" HorizontalAlignment="Right" Width="48" Height="25" Click="SaveItem_Click" Padding="5,5,5,5"/>
